@@ -1,38 +1,45 @@
+
 <?php
 
     try {
+
         include("../PHP/DB.php");
 
-
-        $stmt = $dbh->prepare("SELECT * FROM Characters WHERE Name= :name");
-        $stmt->execute(['name' => $_GET["Name"]]); 
-        $user = $stmt->fetch();
-
-        print_r($user);
-
-    } catch (PDOException $e) {
+        $stmt = $dbh->prepare("SELECT * FROM Characters where _ID = ?");
+        if ($stmt->execute(array($_GET['Name']))) {
+            $char = $stmt->fetch();
+        } else {
+            echo "Not found";
+        }
+    } catch (\Throwable $th) {
         print "Erreur ! — " . $e->getMessage() . "<br/>";
+        die();
     }
 
-?>
-
+    include("../PHP/DB.php"); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
 
-    <link rel="stylesheet" href="../Style/style.css">
-</head>
-<body>
+        <link rel="stylesheet" href="../Style/style.css">
+    </head>
+    <body>
 
-    <header class="cha">
-        <img src="../Assets/Characters/Xiao.png" alt="" class="back">
-        <h1>Xiao</h1>
-        <img src="../Assets/Characters/Xiao.png" alt="" class="front">
-    </header>
+        <header class="cha">
 
-</body>
+            <span class="smallmenu">
+                <?php echo $char["Name"] ?>
+            </span>
+
+            <img src="../Assets/Characters/<?php echo $char["Name"] ?>.png" alt="" class="back">
+            <h1><?php echo $char["Name"] ?></h1>
+            <h1 style="emix-blend-mode: color; z-index: 3;"><?php echo $char["Name"] ?></h1>
+            <img src="../Assets/Characters/<?php echo $char["Name"] ?>.png" alt="" class="front">
+        </header>
+
+    </body>
 </html>
