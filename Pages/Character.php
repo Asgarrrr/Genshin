@@ -25,19 +25,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
 
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../Style/style.css">
+
     </head>
     <body>
 
         <header class="cha">
-
-            <span class="smallmenu">
-                <?php echo $char["Name"] ?>
-            </span>
-
             <img src="../Assets/Characters/<?php echo $char["Name"] ?>.png" alt="" class="back">
             <h1><?php echo $char["Name"] ?></h1>
-            <h1 style="emix-blend-mode: color; z-index: 3;"><?php echo $char["Name"] ?></h1>
+            <span class="smallname">
+                <?php echo $char["Name"] ?>
+            </span>
             <img src="../Assets/Characters/<?php echo $char["Name"] ?>.png" alt="" class="front">
         </header>
 
