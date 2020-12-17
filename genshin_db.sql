@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-genshin.alwaysdata.net
--- Generation Time: Dec 15, 2020 at 05:16 PM
+-- Generation Time: Dec 17, 2020 at 11:58 AM
 -- Server version: 10.5.5-MariaDB
 -- PHP Version: 7.2.29
 
@@ -71,12 +71,23 @@ INSERT INTO `Artefact` (`_ID`, `Name`, `1P`, `2P`, `4P`, `RarityMax`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Box`
+--
+
+CREATE TABLE `Box` (
+  `_IDBox` int(11) NOT NULL,
+  `_IDUser` int(11) NOT NULL,
+  `_IDCharacter` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Characters`
 --
 
 CREATE TABLE `Characters` (
-  `_ID` int(11) NOT NULL,
-  `Name` varchar(50) DEFAULT NULL,
+  `_ID` varchar(50) NOT NULL,
   `Element` int(11) DEFAULT NULL,
   `WeaponType` int(11) DEFAULT NULL,
   `Rarity` int(11) DEFAULT NULL,
@@ -84,15 +95,69 @@ CREATE TABLE `Characters` (
   `Description` varchar(200) DEFAULT NULL,
   `SArtefacts` int(11) DEFAULT NULL,
   `_IDArtefact` int(11) DEFAULT NULL,
-  `_IDArme` int(11) DEFAULT NULL
+  `_IDArme` int(11) DEFAULT NULL,
+  `Skill1` int(11) DEFAULT NULL,
+  `Skill2` int(11) DEFAULT NULL,
+  `Skill3` int(11) DEFAULT NULL,
+  `_IDPassive1` int(11) DEFAULT NULL,
+  `_IDPassive2` int(11) DEFAULT NULL,
+  `_IDPassive3` int(11) DEFAULT NULL,
+  `_IDConstellations1` int(11) DEFAULT NULL,
+  `_IDConstellations2` int(11) DEFAULT NULL,
+  `_IDConstellations3` int(11) DEFAULT NULL,
+  `_IDConstellations4` int(11) DEFAULT NULL,
+  `_IDConstellations5` int(11) DEFAULT NULL,
+  `_IDConstellations6` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `Characters`
 --
 
-INSERT INTO `Characters` (`_ID`, `Name`, `Element`, `WeaponType`, `Rarity`, `Tiers`, `Description`, `SArtefacts`, `_IDArtefact`, `_IDArme`) VALUES
-(1, 'Amber', 1, 1, 4, 0, '', 0, 0, 0);
+INSERT INTO `Characters` (`_ID`, `Element`, `WeaponType`, `Rarity`, `Tiers`, `Description`, `SArtefacts`, `_IDArtefact`, `_IDArme`, `Skill1`, `Skill2`, `Skill3`, `_IDPassive1`, `_IDPassive2`, `_IDPassive3`, `_IDConstellations1`, `_IDConstellations2`, `_IDConstellations3`, `_IDConstellations4`, `_IDConstellations5`, `_IDConstellations6`) VALUES
+('Amber', 1, 1, 4, 0, 'Lorem Ipsum', NULL, 12, 77, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Constellations`
+--
+
+CREATE TABLE `Constellations` (
+  `_ID` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Obtention` varchar(200) NOT NULL,
+  `Description` varchar(5000) NOT NULL,
+  `_IDCharacter` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Passives`
+--
+
+CREATE TABLE `Passives` (
+  `_ID` int(11) NOT NULL,
+  `Name` int(50) NOT NULL,
+  `Obtention` varchar(50) NOT NULL,
+  `Description` varchar(5000) NOT NULL,
+  `_IDCharacter` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Skills`
+--
+
+CREATE TABLE `Skills` (
+  `_ID` int(11) NOT NULL,
+  `Name` varchar(100) NOT NULL,
+  `Description` varchar(5000) NOT NULL,
+  `Data` varchar(10000) NOT NULL,
+  `_IDCharacter` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -103,7 +168,8 @@ INSERT INTO `Characters` (`_ID`, `Name`, `Element`, `WeaponType`, `Rarity`, `Tie
 CREATE TABLE `User` (
   `_ID` int(11) NOT NULL,
   `Pseudo` varchar(100) NOT NULL,
-  `Password` varchar(100) NOT NULL
+  `Password` varchar(100) NOT NULL,
+  `Mail` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -208,7 +274,27 @@ INSERT INTO `Weapons` (`_ID`, `Name`, `Type`, `Rarity`, `MSValue`, `SStat`, `SSV
 (76, 'Emerald Orb', 4, 3, 40, 'Elemental Mastery', NULL, 'Rapids', 'Upon causing a Vaporize, Electro-Charged, Frozen, or a Hydro-infused Swirl reaction, increases Base ATK by 20/25/30/35/40% for 12s.', 'Gacha'),
 (77, 'Amber Catalyst', 4, 3, 40, 'Elemental Mastery', NULL, 'Elemental Mastery', 'Normal Attack hits increase all Elemental DMG by 6/7.5/9/10.5/12% for 6s. Max 2 stacks.', 'Gacha'),
 (78, 'Pocket Grimoire', 4, 2, 33, '', NULL, '', '', 'Gacha'),
-(79, 'Apprentice\'s Notes', 4, 1, 23, '', NULL, '', '', 'Gacha');
+(79, 'Apprentice\'s Notes', 4, 1, 23, '', NULL, '', '', 'Gacha'),
+(80, 'Skyward Harp', 5, 5, 45, 'CRIT Rate', NULL, 'Echoing Ballad', 'Increases CRIT DMG by 20/25/30/35/40%. Hits have a 60/70/80/90/100% chance to inflict a small AoE attack, dealing 100% Physical ATK DMG. Can only occur once every 4s.', 'Gacha'),
+(81, 'Amos\' Bow', 5, 5, 46, 'ATK', NULL, 'Strong-Willed', 'Increases Normal Attack and Aimed Shot DMG by 12/15/18/21/24%. Increases DMG from arrows shot by a further 8/10/12/14/16% for every 0.1s that the arrow is in flight, up to 0.5s. Stacks up to 5 times on each arrow.', 'Gacha'),
+(82, 'The Viridescent Hunt', 5, 4, 42, 'CRIT Rate', NULL, 'Verdant Wind', 'Upon hit, Normal and Aimed Shot Attacks have a 50% chance to generate a Cyclone, which will continuously attract surrounding enemies, dealing 40% of ATK as DMG to these enemies every 0.5s for 4s. This effect can only occur once every 14s.', 'BP Bounty'),
+(83, 'The Stringless', 5, 4, 42, 'Elemental Mastery', NULL, 'Arrowless Song', 'Increases Elemental Skill and Elemental Burst DMG by 24/30/36/42/48%.', 'Gacha'),
+(84, 'Sacrificial Bow', 5, 4, 44, 'Energy Recharge', NULL, 'Composed', 'After damaging an opponent with an Elemental Skill, the skill has a 40/50/60/70/80% chance to end its own CD. Can only occur once every 30/26/22/18/14s.', 'Gacha'),
+(85, 'Rust', 5, 4, 42, 'ATK', NULL, 'Rapid Firing', 'Increases Normal Attack DMG by 40/50/60/70/80% but decreases Aimed Shot DMG by 8/9/10/11/12%', 'Gacha'),
+(86, 'Royal Bow', 5, 4, 42, 'ATK', NULL, 'Focus', '\r\nUpon damaging an enemy, increases CRIT Rate by 8%. Max 5 stacks. A CRIT hit removes all stacks.', 'Starglitter Exchange'),
+(87, 'Prototype Crescent', 5, 4, 42, 'ATK', NULL, 'Unreturning', 'Aimed Shot hits on weak points increase Movement SPD by 10% and ATK by 6% for 10s.', 'Crafting'),
+(88, 'Favonius Warbow', 5, 4, 41, 'Energy Recharge', NULL, 'Windfall', 'CRIT hits have a 60/70/80/90/100% chance to generate 1 Elemental Orb, which will regenerate 6 Energy for the character. Can only occur once every 12/10.5/9/7.5/6s.', 'Gacha'),
+(89, 'Compound Bow', 5, 4, 41, 'Physical DMG Bonus', NULL, 'Infusion Arrow', 'Normal Attack and Aimed Shot hits increase ATK by 4/5/6/7/8% and Normal Attack SPD by 1.2/1.5/1.8/2.1/2.4% for 6s. Max 4 stacks. Can only occur once every 0.3s.', 'Crafting'),
+(90, 'Blackcliff Warbow', 5, 4, 44, 'CRIT DMG', NULL, 'Press the Advantage', 'After defeating an enemy, ATK is increased by 12/15/18/21/24% for 30s. This effect has a maximum of 3 stacks, and the duration of each stack is independent of the others.', 'Starglitter Exchange'),
+(91, 'Alley Hunter', 5, 4, 41, 'CRIT Rate', NULL, 'Urban Guerrilla', 'Every 4s a character is on the field, their ATK increases by 4/5/6/7/8% and their CRIT DMG increases by 4/5/6/7/8%. This effect has a maximum of 5 stacks and will not be reset if the character leaves the field, but will be cleared when the character takes DMG.', 'Gacha'),
+(92, 'Slingshot', 5, 3, 38, 'CRIT Rate', NULL, 'Slingshot', 'If a Normal Attack or Aimed Shot hits a target within 0.3s of being fired, increases DMG by 36/42/48/54/60%; otherwise, it decreases DMG by 10%.', 'Gacha'),
+(93, 'Sharpshooter\'s Oath', 5, 3, 39, 'CRIT DMG', NULL, 'Precise', 'Increases DMG against weak spots by 24/30/36/42/48%.', 'Gacha'),
+(94, 'Recurve Bow', 5, 3, 38, 'HP', NULL, 'Cull the Weak', 'Defeating an opponent restores 8/10/12/14/16% HP.', 'Chest'),
+(95, 'Raven Bow', 5, 3, 40, 'Elemental Mastery', NULL, 'Bane of Flame and Water', 'Increases DMG against enemies affected by Hydro or Pyro by 12/15/18/21/24%', 'Gacha'),
+(96, 'Messenger', 5, 3, 40, 'CRIT DMG', NULL, 'Archer\'s Message', 'Aimed Shot hits on weak spots deal an additional 100/125/150/175/200% ATK DMG as CRIT DMG. Can only occur once every 10s.', 'Chest'),
+(97, 'Ebony Bow', 5, 3, 40, 'ATK', NULL, 'Decimate', 'Increases DMG against mechanoid Ruin enemies by 40/50/60/70/80%.', 'Gacha'),
+(98, 'Seasoned Hunter\'s Bow', 5, 2, 33, '', NULL, '', '', 'Gacha'),
+(99, 'Hunter\'s Bow', 5, 1, 23, '', NULL, '', '', 'Gacha');
 
 --
 -- Indexes for dumped tables
@@ -221,10 +307,53 @@ ALTER TABLE `Artefact`
   ADD PRIMARY KEY (`_ID`);
 
 --
+-- Indexes for table `Box`
+--
+ALTER TABLE `Box`
+  ADD PRIMARY KEY (`_IDBox`),
+  ADD KEY `_IDUser` (`_IDUser`),
+  ADD KEY `_IDCharacter` (`_IDCharacter`);
+
+--
 -- Indexes for table `Characters`
 --
 ALTER TABLE `Characters`
-  ADD UNIQUE KEY `_ID` (`_ID`);
+  ADD PRIMARY KEY (`_ID`),
+  ADD UNIQUE KEY `_IDArtefact` (`_IDArtefact`,`_IDArme`),
+  ADD KEY `_IDArme` (`_IDArme`),
+  ADD KEY `Skill1` (`Skill1`),
+  ADD KEY `Skill2` (`Skill2`),
+  ADD KEY `Skill3` (`Skill3`),
+  ADD KEY `_IDConstellations6` (`_IDConstellations6`),
+  ADD KEY `_IDConstellations5` (`_IDConstellations5`),
+  ADD KEY `_IDConstellations4` (`_IDConstellations4`),
+  ADD KEY `_IDConstellations3` (`_IDConstellations3`),
+  ADD KEY `_IDConstellations2` (`_IDConstellations2`),
+  ADD KEY `_IDConstellations1` (`_IDConstellations1`),
+  ADD KEY `_IDPassive3` (`_IDPassive3`),
+  ADD KEY `_IDPassive2` (`_IDPassive2`),
+  ADD KEY `_IDPassive1` (`_IDPassive1`);
+
+--
+-- Indexes for table `Constellations`
+--
+ALTER TABLE `Constellations`
+  ADD PRIMARY KEY (`_ID`),
+  ADD UNIQUE KEY `_IDCharacter` (`_IDCharacter`);
+
+--
+-- Indexes for table `Passives`
+--
+ALTER TABLE `Passives`
+  ADD PRIMARY KEY (`_ID`),
+  ADD KEY `_IDCharacter` (`_IDCharacter`);
+
+--
+-- Indexes for table `Skills`
+--
+ALTER TABLE `Skills`
+  ADD PRIMARY KEY (`_ID`),
+  ADD KEY `_IDCharacter` (`_IDCharacter`);
 
 --
 -- Indexes for table `User`
@@ -250,10 +379,28 @@ ALTER TABLE `Artefact`
   MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `Characters`
+-- AUTO_INCREMENT for table `Box`
 --
-ALTER TABLE `Characters`
-  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `Box`
+  MODIFY `_IDBox` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Constellations`
+--
+ALTER TABLE `Constellations`
+  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Passives`
+--
+ALTER TABLE `Passives`
+  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Skills`
+--
+ALTER TABLE `Skills`
+  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `User`
@@ -265,7 +412,55 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `Weapons`
 --
 ALTER TABLE `Weapons`
-  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Box`
+--
+ALTER TABLE `Box`
+  ADD CONSTRAINT `Box_ibfk_1` FOREIGN KEY (`_IDUser`) REFERENCES `User` (`_ID`),
+  ADD CONSTRAINT `Box_ibfk_2` FOREIGN KEY (`_IDCharacter`) REFERENCES `Characters` (`_ID`);
+
+--
+-- Constraints for table `Characters`
+--
+ALTER TABLE `Characters`
+  ADD CONSTRAINT `Characters_ibfk_1` FOREIGN KEY (`_IDArme`) REFERENCES `Weapons` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_10` FOREIGN KEY (`_IDConstellations5`) REFERENCES `Constellations` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_11` FOREIGN KEY (`_IDConstellations6`) REFERENCES `Constellations` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_12` FOREIGN KEY (`_IDPassive1`) REFERENCES `Passives` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_13` FOREIGN KEY (`_IDPassive2`) REFERENCES `Passives` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_14` FOREIGN KEY (`_IDPassive3`) REFERENCES `Passives` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_2` FOREIGN KEY (`_IDArtefact`) REFERENCES `Artefact` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_3` FOREIGN KEY (`Skill1`) REFERENCES `Skills` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_4` FOREIGN KEY (`Skill2`) REFERENCES `Skills` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_5` FOREIGN KEY (`Skill3`) REFERENCES `Skills` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_6` FOREIGN KEY (`_IDConstellations1`) REFERENCES `Constellations` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_7` FOREIGN KEY (`_IDConstellations2`) REFERENCES `Constellations` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_8` FOREIGN KEY (`_IDConstellations3`) REFERENCES `Constellations` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_9` FOREIGN KEY (`_IDConstellations4`) REFERENCES `Constellations` (`_ID`);
+
+--
+-- Constraints for table `Constellations`
+--
+ALTER TABLE `Constellations`
+  ADD CONSTRAINT `Constellations_ibfk_1` FOREIGN KEY (`_IDCharacter`) REFERENCES `Characters` (`_ID`);
+
+--
+-- Constraints for table `Passives`
+--
+ALTER TABLE `Passives`
+  ADD CONSTRAINT `Passives_ibfk_1` FOREIGN KEY (`_IDCharacter`) REFERENCES `Characters` (`_ID`);
+
+--
+-- Constraints for table `Skills`
+--
+ALTER TABLE `Skills`
+  ADD CONSTRAINT `Skills_ibfk_1` FOREIGN KEY (`_IDCharacter`) REFERENCES `Characters` (`_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
