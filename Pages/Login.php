@@ -1,4 +1,6 @@
-<?php include "../PHP/DB.php";?>
+<?php include "../PHP/DB.php";
+if(isset($_SESSION)
+    echo "<meta http-equiv='refresh' content='0;url=http:localhost/Genshin/' />";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
