@@ -1,4 +1,3 @@
-
 <?php
 
     try {
@@ -16,7 +15,7 @@
         die();
     }
 
-    include("../PHP/DB.php"); ?>
+    ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -30,16 +29,26 @@
         <link rel="stylesheet" href="../Style/style.css">
 
     </head>
-    <body>
+    <body class="hero">
+        <div class="slider slider--first"></div>
+        <div class="slider slider--second"></div>
 
         <header class="cha">
-            <img src="../Assets/Characters/<?php echo $char["Name"] ?>.png" alt="" class="back">
-            <h1><?php echo $char["Name"] ?></h1>
-            <span class="smallname">
-                <?php echo $char["Name"] ?>
-            </span>
-            <img src="../Assets/Characters/<?php echo $char["Name"] ?>.png" alt="" class="front">
+            <img src="../Assets/Character/Portait/<?php echo $_GET["Name"] ?>.webp" alt="" class="back">
+            <h1 id="name"><?php echo $_GET["Name"] ?></h1>
+            <img src="../Assets/Character/Portait/<?php echo $_GET["Name"] ?>.webp" alt="" class="front">
         </header>
 
+        <!-- <section class="background">
+            <p><?php echo $char["Description"]?></p>
+        </section> -->
+
     </body>
+
+    <script src="../JS/gsap.js"></script>
+    <script src="../JS/script.js"></script>
+
+    <script>
+        localStorage.setItem('fromCharacter', true);
+    </script>
 </html>
