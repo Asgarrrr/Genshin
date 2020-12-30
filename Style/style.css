@@ -374,3 +374,17 @@ nav .icon {
 h1, h2, h3, h4, h5, h6 {
     color: white;
 }
+
+
+p, dt, dl {
+    color: white;
+
+}
+
+
+form {
+    position: absolute;
+    top : 50%;
+    right : 50%;
+    transform: translate(-50%,-50%);
+}
