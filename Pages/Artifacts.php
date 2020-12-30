@@ -75,23 +75,19 @@
                     </div>
 
                     <dl class="row">
-  <dt class="col-sm-3">2 Piece Bonus</dt>
-  <dd class="col-sm-9"><?php echo $u["2P"] ?></dd>
+                        <dt class="col-sm-3">2 Pieces Bonus</dt>
+                        <dd class="col-sm-9"><?php echo $u["2P"] ?></dd>
 
-  <dt class="col-sm-3">4 Piece Bonus</dt>
-  <dd class="col-sm-9">
-    <p><?php echo $u["4P"] ?></p>
-  </dd>
+                        <dt class="col-sm-3">4 Pieces Bonus</dt>
+                        <dd class="col-sm-9">
+                            <p><?php echo $u["4P"] ?></p>
+                        </dd>
 
-</dl>
+                    </dl>
 
-                        </div>
+                </div>
 
-                    <?php } ?>
-
-
-
-
+                <?php } ?>
             </div>
         </main>
     </body>
