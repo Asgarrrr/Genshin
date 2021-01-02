@@ -32,7 +32,7 @@
     </head>
     <body>
 
-        <?php include("navbar.php"); ?>
+        <?php include("Navbar.php"); ?>
 
         <main class="container">
             <h5>Hi,</h5>

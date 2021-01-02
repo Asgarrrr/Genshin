@@ -28,7 +28,7 @@
 
     <body>
 
-        <?php include("navbar.php"); ?>
+        <?php include("Navbar.php"); ?>
 
         <div class="row loginform">
             <div class="col p-0 text-center d-flex justify-content-center align-items-center display-none" style="background-color: #01060E;">

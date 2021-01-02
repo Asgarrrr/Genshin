@@ -61,7 +61,7 @@
 
     <body>
 
-        <?php include("navbar.php");?>
+        <?php include("Navbar.php");?>
 
         <main class="container">
             <div class="card secondary card-body">
