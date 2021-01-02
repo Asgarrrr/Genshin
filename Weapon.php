@@ -21,8 +21,14 @@
 </head>
 <body>
     <main class="container">
-    <h1 class="pb-4"><?php echo"Weapon : ".$_GET['Name'];?></h1>
+    <h1 class="pb-4"><?php echo"Weapon : ".$_GET["Name"];?></h1>
     <img src="Assets/Weapons/Trier/<?php echo $datastmt["Name"]?>.png">
-    <div></div>
+    <h1 class="pb-4"><?php echo"Rarity : ".$datastmt['Rarity']." Stars";?></h1>
+    <h1 class="pb-4"><?php echo"Attack Value : ".$datastmt['MSValue'];?></h1>
+    <h1 class="pb-4"><?php echo"Sub stats : ".$datastmt['SStat'];?></h1>
+    <h1 class="pb-4"><?php echo"Passive : ".$datastmt['Passive'];?></h1>
+    <h1 class="pb-4"><?php echo"Description : ".$datastmt['Description'];?></h1>
+    <h1 class="pb-4"><?php echo"How to obtain : ".$datastmt['Location'];?></h1>
+
 </body>
 </html>
