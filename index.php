@@ -72,7 +72,7 @@
                 gsap.to(".sliderIn--first", { x: "-100%", duration: 0.8, });
                 gsap.to(".sliderIn--second", { x: "-100%", duration: 0.4, onComplete: () => {
                     localStorage.setItem('fromCharacter', true)
-                    document.location.href = "http://localhost:8888/Genshin/" + event.srcElement.offsetParent.dataset.href
+                    document.location.href = "http://localhost/Genshin/" + event.srcElement.offsetParent.dataset.href
                 }});
             })
         })
