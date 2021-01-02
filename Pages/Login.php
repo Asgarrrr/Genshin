@@ -1,6 +1,9 @@
 <?php include "../PHP/DB.php";
-if(isset($_SESSION)
-    echo "<meta http-equiv='refresh' content='0;url=http:localhost/Genshin/' />";?>
+    session_start();
+    if(isset($_SESSION["_ID"])){
+         echo "<meta http-equiv='refresh' content='0;url=../' />";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,22 +29,25 @@ if(isset($_SESSION)
     </form>
 
 
-    <?php 
-        if((isset($_POST['password'])) && (isset($_POST['username']))){
-            $request = $dbh->query('SELECT * FROM `User` WHERE `Pseudo` ="'.$_POST["username"].'" AND `Password` = "'.$_POST["password"].'"');
-            $dataRequest = $request->fetch();
-            if($dataRequest == NULL){
-                echo"<p>Vos identifiants sont erronés</p>";
-            }
-            else
-            if(($_POST['username'] = $dataRequest['Pseudo']) && ($_POST['password'] = $dataRequest['Password'])){
-                session_start();
-                echo"<p>Bienvenue ".$dataRequest['Pseudo']."</p>";
+    <?php
+        if(!isset($_SESSION["_ID"])){
+            if((isset($_POST['password'])) && (isset($_POST['username']))){
+                $request = $dbh->query('SELECT * FROM `User` WHERE `Pseudo` ="'.$_POST["username"].'" AND `Password` = "'.$_POST["password"].'"');
+                $dataRequest = $request->fetch();
+                if(($_POST['username'] = $dataRequest['Pseudo']) && ($_POST['password'] = $dataRequest['Password'])){
+                    session_start();
+                    $_SESSION["username"] = $_POST["username"];
+                    $_SESSION["_ID"] = $dataRequest['_ID'];
+                    echo "<meta http-equiv='refresh' content='0;url=../' />";
+                }
+                elseif(isset($_POST['Logout'])){
+                    unset($_SESSION);
+                }
+                elseif($dataRequest == NULL){
+                    echo"<p>Vos identifiants sont erronés</p>";
+                }  
             }
         }
-        if(isset($_POST['Logout']))
-           unset($_SESSION);
-    
     ?>
 </body>
 </html>

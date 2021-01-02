@@ -1,6 +1,7 @@
 <?php
 
     try {
+        session_start();
         include("PHP/DB.php");
         $stmt = $dbh->query("SELECT * FROM Characters");
     } catch (\Throwable $th) {
