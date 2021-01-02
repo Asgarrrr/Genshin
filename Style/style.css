@@ -25,6 +25,7 @@ body {
 .navbar {
     padding-top: 1rem;
     padding-bottom: 1rem;
+    z-index: 30;
 }
 
 .data-list {
@@ -188,17 +189,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10;
-}
-
-.sliderIn--first {
-    background: #010914;
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
+    z-index: 51;
 }
 
 .slider--second {
@@ -208,7 +199,17 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 9;
+    z-index: 50;
+}
+
+.sliderIn--first {
+    background: #010914;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
 }
 
 .sliderIn--second {
@@ -218,9 +219,8 @@ body {
     right: -100%;
     width: 100%;
     height: 100%;
-    z-index: 9;
+    z-index: 49;
 }
-
 
 
 .data-list {
@@ -311,6 +311,7 @@ h6 {
     text-indent: 40px;
     font-size: 1.25rem;
     font-weight: 300;
+    /*! margin-bottom: 110px; */
 }
 
 
@@ -449,6 +450,7 @@ h6 {
     color: #131A24;
     font-family: 'zh-cn';
     font-size: 70px;
+    margin-top: 100px;
 }
 
 
@@ -467,11 +469,13 @@ h6 {
 
 
 .tags {
-    margin : 170px 0px 70px 0px;
+    margin : 170px 0px 0px 0px;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-  }
+    color: #131A24;
+    font-weight: 500;
+}
 
 .skillcard {
     color: #a7b1c1 !important;
@@ -537,4 +541,13 @@ a, a:hover {
     .display-none {
         display: none !important;
     }
+}
+
+
+dl {
+    color: white;
+}
+
+#formInfo {
+    color: rgb(230, 74, 74);
 }
