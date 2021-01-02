@@ -3,7 +3,7 @@
     try {
         session_start();
         include("PHP/DB.php");
-        if($_SESSION["_ID"])
+        if($_SESSION && $_SESSION["_ID"])
             echo '<meta http-equiv="refresh" content="url=User.php" />';
     } catch (\Throwable $th) {
         print "Erreur ! — " . $e->getMessage() . "<br/>";
