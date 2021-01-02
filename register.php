@@ -49,7 +49,7 @@
                         <input type="password" class="form-control" name="passwordCheck" placeholder="Password" required="">
                         <p id="formInfo"></p>
                     </div>
-                    <p class="text-end">Already have an account ? <a href="login.php">Sign in</a></p>
+                    <p class="text-end">Already have an account ? <a href="Login.php">Sign in</a></p>
                     <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-3">Register Now</button>
                 </form>
             </div>

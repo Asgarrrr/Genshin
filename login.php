@@ -46,7 +46,7 @@
                         <input type="password" class="form-control" name="password" placeholder="Password" required="">
                         <p id="formInfo"></p>
                     </div>
-                    <p class="text-end">No account yet ? <a href="register.php">Register</a></p>
+                    <p class="text-end">No account yet ? <a href="Register.php">Register</a></p>
                     <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-3">Login Now</button>
                 </form>
             </div>
