@@ -69,7 +69,7 @@
             $stmt = $stmt->fetch();
 
             if (!$stmt) {
-                echo 'Wrong username or password !';
+                echo "<script>document.getElementById('formInfo').innerHTML = 'Wrong username or password' </script>";
             } else {
 
                 if (password_verify($_POST['password'], $stmt['Password'])) {
