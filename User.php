@@ -3,7 +3,7 @@
     try {
         session_start();
 
-        if (!$_SESSION["_ID"])
+        if (!isset($_SESSION["_ID"]))
             echo "<script> window.location.href = 'Login.php'; </script>";
 
         include("PHP/DB.php");
@@ -43,7 +43,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Informations</h4>
 
-                    <?php if ($_GET['action'] == "edit") { ?>
+                    <?php if (isset($_GET['action']) && $_GET['action'] == "edit") { ?>
                         <form method="POST">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
@@ -100,7 +100,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
     <?php
-        if ($_GET['action'] == "edit" && isset($_POST["update"])) {
+        if (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_POST["update"])) {
             if ($_POST['password'] == $_POST['passwordCheck']) {
                 $stmt = $dbh->prepare('SELECT Password FROM User WHERE _ID = ?');
                 $stmt->execute(array($_SESSION["_ID"]));
@@ -122,7 +122,7 @@
             } else echo "<script>document.getElementById('formInfo').innerHTML = 'The two passwords do not match'; </script>";;
         }
 
-        if ($_GET['action'] == "disconnection") {
+        if (isset($_GET['action']) && $_GET['action'] == "disconnection") {
             session_destroy();
             echo "<script> document.location.reload(); </script>";
         }
