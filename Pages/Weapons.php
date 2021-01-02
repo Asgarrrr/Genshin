@@ -27,7 +27,7 @@
 
                 $cleanName = str_replace(' ', '_', $data["Name"]) ?>
 
-                <a class='portrait' data-href='Pages/Character.php?Name=<?php echo $data["Name"] ?>'>
+                <a class='portrait' href='../Weapon.php?Name=<?php echo $data["Name"] ?>'>
                     <img class="icon" src="https://rerollcdn.com/GENSHIN/Weapon/NEW/<?php echo $cleanName; ?>.png">
                     <h2 class='name'><?php echo $data["Name"] ?></h2>
                 </a>
