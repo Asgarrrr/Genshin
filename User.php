@@ -68,17 +68,20 @@
 
 
                     <?php } else { ?>
+
                         <a class="float-end btn btn-outline-danger" href="?action=disconnection" role="button">Disconnection</a>
                         <a class="float-end btn btn-outline-light me-3" href="?action=edit" role="button">Edit Data</a>
-                        <!--ajout Thomas-->
-                        <form action="" method="get">
-                            <input type="checkbox" name="checkbox" id="checkbox">
-                            <label for="checkbox">Delete your account</label>
-                            <input type="submit" value="delete" Name="delete">
-                        </form>
-                        <!--ajout Thomas-->
+
                         <h3><?php echo $_SESSION["pseudo"]; ?></h4>
                         <h6><?php echo $_SESSION["Mail"]; ?></h6>
+
+                        <form class="float-end form-check" method="get">
+                            <input class="form-check-input" type="checkbox" name="checkbox">
+                            <label class="form-check-label" for="checkbox">
+                                Delete your account
+                            </label>
+                            <input class="btn btn-outline-danger ms-3" type="submit" value="Delete" Name="delete">
+                        </form>
                     <?php } ?>
                 </div>
             </div>
@@ -133,13 +136,19 @@
             session_destroy();
             echo "<script> document.location.reload(); </script>";
         }
-        //ajout Thomas
+
         if(isset($_GET["checkbox"]) && isset($_GET["delete"])) {
+
+            $stmt = $dbh->prepare("DELETE FROM User WHERE _ID = ?");
+            $stmt->execute(array($_SESSION['_ID']));
+
+            $stmt = $dbh->prepare("DELETE FROM Box WHERE _IDUser = ?");
+            $stmt->execute(array($_SESSION['_ID']));
+
             session_destroy();
-            $request = $dbh->query("DELETE FROM User WHERE _ID = '".$_SESSION['_ID']."'");
+
             echo "<script> window.location.href = 'index.php'; </script>";
         }
-        //ajout Thomas
 
     ?>
 
