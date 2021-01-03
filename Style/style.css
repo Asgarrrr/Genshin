@@ -551,3 +551,11 @@ dl {
 #formInfo {
     color: rgb(230, 74, 74);
 }
+
+.form-check-input {
+    margin-top: 0.60em;
+}
+
+.space {
+    margin-top: 50px;
+}
