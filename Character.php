@@ -74,9 +74,9 @@
 
             <div class="tags">
                 <div><?php echo $char["WeaponType"]?></div>
-                <p>—</p><div><?php echo $char["Element"]?></div>
-                <p>—</p><div>Princeps Cretaceus</div>
-                <p>—</p><div>Knights of Favonius</div>
+                <span>—</span><div><?php echo $char["Element"]?></div>
+                <span>—</span><div>Princeps Cretaceus</div>
+                <span>—</span><div>Knights of Favonius</div>
             </div>
 
             <h1 class="subtitle">Story</h1>
@@ -189,9 +189,56 @@
                 </div>
             </div>
 
+            <?php
+
+                if (!$_SESSION["_ID"]) {
+                    echo "<script> window.location.href = 'Login.php'; </script>";
+                }
+
+                $stmt = $dbh->prepare("SELECT * FROM Box WHERE _IDCharacter = ? AND _IDUser = ?");
+                $stmt->execute(array(
+                    $charName,
+                    $_SESSION["_ID"]
+                ));
+
+                $stmt = $stmt->rowCount();
+
+                ?> <form class='d-grid space' method='post'>
+
+                <?php if (!$stmt) { ?>
+                    <button type='submit' class='btn btn-outline-light' name='boxAdd'>Add to your collection</button>
+                <?php } else { ?>
+                    <button type='submit' class='btn btn-outline-danger' name='boxRemove'>Remove from your collection</button>
+                <?php }
+
+                ?> <form class='d-grid space' method='post'> <?php
+
+                if(isset($_POST["boxAdd"])) {
+                    $boxAdd = $dbh->prepare("INSERT INTO Box(_IDCharacter, _IDUser) Value(?, ?)");
+                    $boxAdd->execute(array(
+                        $charName,
+                        $_SESSION["_ID"]
+                    ));
+                    echo "<script> window.location.href = 'User.php'; </script>";
+                }
+
+                if(isset($_POST["boxRemove"])) {
+                    $boxRem = $dbh->prepare("DELETE FROM Box WHERE _IDUser = ? AND _IDCharacter = ?");
+                    $boxRem->execute(array(
+                        $_SESSION["_ID"],
+                        $charName
+                    ));
+                    echo "<script> window.location.href = 'User.php'; </script>";
+                }
+
+                ?>
+
+
         </section>
 
     </body>
+
+
 
     <script src="JS/gsap.js"></script>
     <script src="JS/script.js"></script>
