@@ -70,6 +70,13 @@
                     <?php } else { ?>
                         <a class="float-end btn btn-outline-danger" href="?action=disconnection" role="button">Disconnection</a>
                         <a class="float-end btn btn-outline-light me-3" href="?action=edit" role="button">Edit Data</a>
+                        <!--ajout Thomas-->
+                        <form action="" method="get">
+                            <input type="checkbox" name="checkbox" id="checkbox">
+                            <label for="checkbox">Delete your account</label>
+                            <input type="submit" value="delete" Name="delete">
+                        </form>
+                        <!--ajout Thomas-->
                         <h3><?php echo $_SESSION["pseudo"]; ?></h4>
                         <h6><?php echo $_SESSION["Mail"]; ?></h6>
                     <?php } ?>
@@ -126,6 +133,13 @@
             session_destroy();
             echo "<script> document.location.reload(); </script>";
         }
+        //ajout Thomas
+        if(isset($_GET["checkbox"]) && isset($_GET["delete"])) {
+            session_destroy();
+            $request = $dbh->query("DELETE FROM User WHERE _ID = '".$_SESSION['_ID']."'");
+            echo "<script> window.location.href = 'index.php'; </script>";
+        }
+        //ajout Thomas
 
     ?>
 
