@@ -66,11 +66,19 @@
     if (isset($_POST["submit"])) {
 
         if ($_POST['password'] === $_POST['passwordCheck']) {
+
+            $stmt = $dbh->prepare('SELECT Pseudo FROM User WHERE Pseudo = ?');
+            $stmt->execute(array($_POST['username'],));
+
+            if ($stmt->fetch())
+                exit("<script>document.getElementById('formInfo').innerHTML = 'The user already exists'; </script>");
+
             $stmt = $dbh->prepare('INSERT INTO User(Pseudo, Password) VALUE(?,? )');
             $stmt->execute(array(
                 $_POST['username'],
                 password_hash($_POST['password'], PASSWORD_DEFAULT)
             ));
+
         } else echo "<script>document.getElementById('formInfo').innerHTML = 'The two passwords do not match'; </script>";
 
     }
