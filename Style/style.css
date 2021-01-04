@@ -14,10 +14,6 @@ body {
     background-color: #01060E;
 }
 
-.hero {
-    height: 4000px;
-}
-
 .formpage {
     height: calc(100vh - 104px);
 }
@@ -167,6 +163,11 @@ body {
     z-index: 1;
     color: #131A24;
     font-size: 250px;
+    text-align: center;
+}
+
+.weaponName {
+    font-size: 90px !important;
 }
 
 .cha .back {
@@ -229,24 +230,13 @@ body {
 }
 
 .container {
-    /* On limite la largeur */
     width: 100%;
     max-width: 960px;
-
-    /* On centre */
     margin: 0 auto;
-
-    /* Et on ajoute une marge (sur les petits écrans seulement) */
     padding: 0 20px;
-
-    /*
-    * Le "box-sizing: border-box;" permet de ne pas impacter la width avec le padding
-    * La largeur max réelle du contenu est donc de 920px =&gt; 960 - (2 x 20)
-    */
     box-sizing: border-box;
 }
 
-/* Sur les écrans plus larges, la marge est gérée en pourcentage */
 @media (min-width: 400px) {
     .container {
         width: 85%;
@@ -458,6 +448,9 @@ h6 {
     .cha h1#name {
         z-index: 3;
         font-size: 80px;
+    }
+    .weaponName {
+        font-size: 50px;
     }
     .lore {
         width: 100%;
