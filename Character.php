@@ -191,47 +191,50 @@
 
             <?php
 
-                if (!$_SESSION["_ID"]) {
-                    echo "<script> window.location.href = 'Login.php'; </script>";
-                }
+                if ($_SESSION["_ID"]) {
 
-                $stmt = $dbh->prepare("SELECT * FROM Box WHERE _IDCharacter = ? AND _IDUser = ?");
-                $stmt->execute(array(
-                    $charName,
-                    $_SESSION["_ID"]
-                ));
 
-                $stmt = $stmt->rowCount();
-
-                ?> <form class='d-grid space' method='post'>
-
-                <?php if (!$stmt) { ?>
-                    <button type='submit' class='btn btn-outline-light' name='boxAdd'>Add to your collection</button>
-                <?php } else { ?>
-                    <button type='submit' class='btn btn-outline-danger' name='boxRemove'>Remove from your collection</button>
-                <?php }
-
-                ?> <form class='d-grid space' method='post'> <?php
-
-                if(isset($_POST["boxAdd"])) {
-                    $boxAdd = $dbh->prepare("INSERT INTO Box(_IDCharacter, _IDUser) Value(?, ?)");
-                    $boxAdd->execute(array(
+                    $stmt = $dbh->prepare("SELECT * FROM Box WHERE _IDCharacter = ? AND _IDUser = ?");
+                    $stmt->execute(array(
                         $charName,
                         $_SESSION["_ID"]
                     ));
-                    echo "<script> window.location.href = 'User.php'; </script>";
+
+                    $stmt = $stmt->rowCount();
+
+                    ?> <form class='d-grid space' method='post'>
+
+                    <?php if (!$stmt) { ?>
+                        <button type='submit' class='btn btn-outline-light' name='boxAdd'>Add to your collection</button>
+                    <?php } else { ?>
+                        <button type='submit' class='btn btn-outline-danger' name='boxRemove'>Remove from your collection</button>
+                    <?php }
+
+                    ?> <form class='d-grid space' method='post'> <?php
+
+                    if(isset($_POST["boxAdd"])) {
+                        $boxAdd = $dbh->prepare("INSERT INTO Box(_IDCharacter, _IDUser) Value(?, ?)");
+                        $boxAdd->execute(array(
+                            $charName,
+                            $_SESSION["_ID"]
+                        ));
+                        echo "<script> window.location.href = 'User.php'; </script>";
+                    }
+
+                    if(isset($_POST["boxRemove"])) {
+                        $boxRem = $dbh->prepare("DELETE FROM Box WHERE _IDUser = ? AND _IDCharacter = ?");
+                        $boxRem->execute(array(
+                            $_SESSION["_ID"],
+                            $charName
+                        ));
+                        echo "<script> window.location.href = 'User.php'; </script>";
+                    }
+
+                } else {
+                    ?> <a class='d-grid space btn btn-outline-light' href="login.php">Login for add tt your collection </a> <?php
                 }
 
-                if(isset($_POST["boxRemove"])) {
-                    $boxRem = $dbh->prepare("DELETE FROM Box WHERE _IDUser = ? AND _IDCharacter = ?");
-                    $boxRem->execute(array(
-                        $_SESSION["_ID"],
-                        $charName
-                    ));
-                    echo "<script> window.location.href = 'User.php'; </script>";
-                }
-
-                ?>
+            ?>
 
 
         </section>
