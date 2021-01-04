@@ -28,7 +28,7 @@
 
                 $cleanName = str_replace(' ', '_', $data["Name"]) ?>
 
-                <a class='portrait' href='Weapon.php?Name=<?php echo $data["Name"] ?>'>
+                <a class='portrait' href="Weapon.php?Name=<?php echo $data["Name"] ?>">
                     <img class="icon" src="https://rerollcdn.com/GENSHIN/Weapon/NEW/<?php echo $cleanName; ?>.png">
                     <h2 class='name'><?php echo $data["Name"] ?></h2>
                 </a>
@@ -89,14 +89,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 <script>
 function myFunction() {
-  // Declare variables
+
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
   table = document.getElementById("weaponType1");
   tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
