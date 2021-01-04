@@ -60,20 +60,20 @@
         </main>
     </body>
 
-
-    <!-- <script src="JS/script.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
     <script>
 
         document.querySelectorAll('[data-href]').forEach(item => {
             item.addEventListener('click', event => {
-                console.log();
-                gsap.to(".sliderIn--first", { x: "-100%", duration: 0.8, });
-                gsap.to(".sliderIn--second", { x: "-100%", duration: 0.4, onComplete: () => {
-                    localStorage.setItem('fromCharacter', true)
-                    document.location.href = "http://localhost/Genshin/" + event.srcElement.offsetParent.dataset.href
-                }});
+                const target = event.target.parentNode.attributes[1].value;
+                if (target) {
+                    gsap.to(".sliderIn--first", { x: "-100%", duration: 0.8, });
+                    gsap.to(".sliderIn--second", { x: "-100%", duration: 0.4, onComplete: () => {
+                        localStorage.setItem('fromCharacter', true)
+                        document.location.href = "http://localhost:8888/Genshin/" + target
+               }});
+                }
             })
         })
 
