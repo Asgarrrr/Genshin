@@ -2,8 +2,12 @@
     try {
         session_start();
         include("PHP/DB.php");
-        $stmt = $dbh->query('SELECT * FROM Weapons where `Name` ="'.$_GET["Name"].'"');
-        $datastmt = $stmt->fetch();
+        $stmt = $dbh->query('SELECT * FROM Weapons where `Name` = "'.$_GET["Name"].'"');
+       if (!$datastmt = $stmt->fetch()) {
+        // —— If no weapon data found, redirect to home page.
+        echo "<script> window.location.href = 'Weapons.php'; </script>";
+       }
+
     } catch(\Throwable $th)  {
         print "Erreur ! — " . $th->getMessage() . "<br/>";
         die();
@@ -23,20 +27,36 @@
     <?php include("Navbar.php") ?>
 
     <header class="cha">
-        <img src="Assets/Character/Portait/<?php echo $_GET["Name"] ?>.png" alt="" class="back">
-        <h1 id="name"><?php echo $_GET["Name"] ?></h1>
-        <img src="Assets/Character/Portait/<?php echo $_GET["Name"] ?>.png" alt="" class="front">
+        <img src="Assets/Weapons/<?php echo $_GET["Name"] ?>.png" alt="" class="back">
+        <h1 id="name" class="weaponName"><?php echo $_GET["Name"] ?></h1>
+        <img src="Assets/Weapons/<?php echo $_GET["Name"] ?>.png" alt="" class="front">
     </header>
 
-        <main class="container">
-        <h1 class="pb-4"><?php echo"Weapon : ".$_GET["Name"];?></h1>
-        <img src="Assets/Weapons/<?php echo $datastmt["Name"]?>.png">
-        <h1 class="pb-4"><?php echo"Rarity : ".$datastmt['Rarity']." Stars";?></h1>
-        <h1 class="pb-4"><?php echo"Attack Value : ".$datastmt['MSValue'];?></h1>
-        <h1 class="pb-4"><?php echo"Sub stats : ".$datastmt['SStat'];?></h1>
-        <h1 class="pb-4"><?php echo"Passive : ".$datastmt['Passive'];?></h1>
-        <h1 class="pb-4"><?php echo"Description : ".$datastmt['Description'];?></h1>
-        <h1 class="pb-4"><?php echo"How to obtain : ".$datastmt['Location'];?></h1>
+    <section class="container mb-4">
+
+        <div class="tags">
+            <div><?php echo $datastmt["Rarity"]?> ★</div>
+            <span>—</span><div><?php echo $datastmt["Location"]?></div>
+        </div>
+
+        <h1 class="subtitle">Information</h1>
+        <div class="row row-cols-1 row-cols-sm-2">
+            <div class="col">
+                <div class="card primary skillcard">
+                    <div class="skills-data-item">
+                        <span>Attack Value</span><span><?php echo $datastmt['MSValue'] ?></span>
+                    </div>
+                    <div class="skills-data-item">
+                        <span>Sub stats</span><span><?php echo $datastmt['SStat'] ?></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card primary card-body">
+                    <h6 class="card-subtitle mb-2 text-muted"><?php echo $datastmt['Passive'] ?></h6>
+                    <p><?php echo $datastmt['Description'] ?></p>
+                </div>
+            </div>
 
     </body>
 </html>
