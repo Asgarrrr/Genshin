@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.php">
             <img src="Assets/Logo_CHS_Pure-min.png" alt="Genshin Logo" width="80">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#extend" aria-expanded="false" >
