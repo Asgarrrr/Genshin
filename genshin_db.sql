@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-genshin.alwaysdata.net
--- Generation Time: Dec 30, 2020 at 02:57 PM
+-- Generation Time: Jan 05, 2021 at 04:06 PM
 -- Server version: 10.5.5-MariaDB
 -- PHP Version: 7.2.29
 
@@ -68,7 +68,8 @@ INSERT INTO `Artefact` (`_ID`, `_GID`, `Name`, `Pieces`, `1P`, `2P`, `4P`, `Rari
 (22, 10005, 'Berserker', 5, '', 'CRIT Rate +12%.', 'When HP is below 70%, CRIT Rate increases by an additional 24%.', 4),
 (23, 10013, 'Traveling Doctor', 5, '', 'Increases incoming healing by 20%.', 'Using Elemental Burst restores 20% HP.', 3),
 (24, 10011, 'Lucky Dog', 5, '', 'DEF increased by 100.', 'Picking up Mora restores 300 HP.', 3),
-(25, 10010, 'Adventurer', 5, '', 'Max HP increased by 1,000.', 'Opening chest regenerates 30% Max HP over 5s.', 3);
+(25, 10010, 'Adventurer', 5, '', 'Max HP increased by 1,000.', 'Opening chest regenerates 30% Max HP over 5s.', 3),
+(26, NULL, 'Heart of Depth', 5, '', 'Hydro DMG Bonus +15%', 'After using Elemental Skill, increases Normal Attack and Charged Attack DMG by 30% for 15s.', 5);
 
 -- --------------------------------------------------------
 
@@ -81,6 +82,21 @@ CREATE TABLE `Box` (
   `_IDUser` int(11) NOT NULL,
   `_IDCharacter` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `Box`
+--
+
+INSERT INTO `Box` (`_IDBox`, `_IDUser`, `_IDCharacter`) VALUES
+(6, 8, 'Razor'),
+(9, 8, 'Klee'),
+(10, 8, 'Xinyan'),
+(11, 11, 'Xinyan'),
+(12, 11, 'Jean'),
+(13, 12, 'Fischl'),
+(14, 12, 'Xiangling'),
+(15, 12, 'Traveler (Anemo)'),
+(16, 12, 'Ningguang');
 
 -- --------------------------------------------------------
 
@@ -95,8 +111,8 @@ CREATE TABLE `Characters` (
   `Rarity` int(11) DEFAULT NULL,
   `Tiers` int(11) DEFAULT NULL,
   `Description` varchar(1000) DEFAULT NULL,
-  `SArtefacts` int(11) DEFAULT NULL,
   `_IDArtefact` int(11) DEFAULT NULL,
+  `_IDArtefact2` int(11) DEFAULT NULL,
   `_IDArme` int(11) DEFAULT NULL,
   `Skill1` int(11) DEFAULT NULL,
   `Skill2` int(11) DEFAULT NULL,
@@ -116,38 +132,36 @@ CREATE TABLE `Characters` (
 -- Dumping data for table `Characters`
 --
 
-INSERT INTO `Characters` (`_ID`, `Element`, `WeaponType`, `Rarity`, `Tiers`, `Description`, `SArtefacts`, `_IDArtefact`, `_IDArme`, `Skill1`, `Skill2`, `Skill3`, `_IDPassive1`, `_IDPassive2`, `_IDPassive3`, `_IDConstellations1`, `_IDConstellations2`, `_IDConstellations3`, `_IDConstellations4`, `_IDConstellations5`, `_IDConstellations6`) VALUES
-('Albedo', 'Geo', 'Sword', 5, NULL, 'Albedo — an alchemist based in Mondstadt, in the service of the Knights of Favonius.\r\n\r\n\"Genius,\" \"Kreideprinz,\" or \"Captain of the Investigation Team\"... Such titles and honors are of no consequence to him when there is so much more research to conduct.\r\n\r\nThe pursuit of fortune and connections cannot hold a candle to his heart\'s desire — acquiring the limitless, obscure knowledge left behind by previous generations of scholars.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('Amber', 'Pyro', 'Bow', 4, NULL, 'Always energetic and full of life, Amber\'s the best - albeit only - Outrider of the Knights of Favonius.', NULL, NULL, 79, 1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5, 6),
-('Ayaka', 'Cryo', 'Sword', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('Barbara', 'Hydro', 'Catalyst', 4, NULL, 'Every denizen of Mondstadt adores Barbara. However, she learned the word \"idol\" from a magazine.', NULL, NULL, 66, 4, 5, 6, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-('Beidou', 'Electro', 'Claymore', 4, NULL, 'Beidou is the leader of the Crux — an armed fleet based in Liyue Harbor. An armed fleet means exactly what it sounds like: a fleet of ships armed to the teeth.', NULL, NULL, 37, 7, 8, 9, 7, 8, 9, 13, 14, 15, 16, 17, 18),
-('Bennett', 'Pyro', 'Sword', 4, NULL, 'A righteous and good-natured adventurer from Mondstadt who\'s unfortunately extremely unlucky.', NULL, NULL, 0, 10, 11, 12, 10, 11, 12, 19, 20, 21, 22, 23, 24),
-('Chongyun', 'Cryo', 'Claymore', 4, NULL, 'A young exortcist from a family of exorcists. He does everything he can to suppress his pure positive energy.', NULL, NULL, 39, 13, 14, 15, 13, 14, 15, 25, 26, 27, 28, 29, 30),
-('Diluc', 'Pyro', 'Claymore', 5, NULL, 'The tycoon of a winery empire in Mondstadt, unmatched in every possible way.', NULL, NULL, 37, 16, 17, 18, 16, 17, 18, 31, 32, 33, 34, 35, 36),
-('Diona', 'Cryo', 'Bow', 4, NULL, 'A young lady who has inherited trace amounts of non-human blood. She is the incredible popular bartender of the Cat\'s Tail tavern.', NULL, NULL, 83, 19, 20, 21, 19, 20, 21, 37, 38, 39, 40, 41, 42),
-('Fischl', 'Electro', 'Bow', 4, NULL, 'A mysterious girl who calls herself \"Prinzessia der Verurteilung\" and travels with a night raven named Oz.', NULL, NULL, 79, 22, 23, 24, 22, 23, 24, 43, 44, 45, 46, 47, 48),
-('Ganyu', 'Cryo', 'Bow', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('Jean', 'Anemo', 'Sword', 5, NULL, 'The righteous and rigorous Dandelion Knight, and Acting Grand Master of the Knights of Favonius in Mondstadt.', NULL, NULL, 0, 25, 26, 27, 25, 26, 27, 49, 50, 51, 52, 53, 54),
-('Kaeya', 'Cryo', 'Sword', 4, NULL, 'A thinker in the Knights of Favonius with a somewhat exotic appearance.', NULL, NULL, 0, 28, 29, 30, 28, 29, 30, 55, 56, 57, 58, 59, 60),
-('Keqing', 'Electro', 'Sword', 5, NULL, 'The Yuheng of the Liyue Qixing. Has much to say about Rex Lapis\' unilateral approach to policymaking in Liyue - but in truth, gods admire skeptics such as her quite a lot.', NULL, NULL, 3, 31, 32, 33, 31, 32, 33, 61, 62, 63, 64, 65, 66),
-('Klee', 'Pyro', 'Catalyst', 5, NULL, 'An explosives expert and a regular at the Knights of Favonius\' confinement room. Also known as Fleeing Sunlight.', NULL, NULL, 58, 34, 35, 36, 34, 35, 36, 67, 68, 69, 70, 71, 72),
-('Lisa', 'Electro', 'Catalyst', 4, NULL, 'The languid but knowledgeable Librarian of the Knights of Favonius who was deemed by Sumeru Academia to be their most distinguised graduate in the past two centuries.', NULL, NULL, 58, 37, 38, 39, 37, 38, 39, 73, 74, 75, 76, 77, 78),
-('Mona', 'Hydro', 'Catalyst', 5, NULL, 'A mysterious young astrologer who proclaims herself to be \"Astrologist Mona Megistus,\" and who possesses abilities to match the title.', NULL, NULL, 58, 40, 41, 42, 40, 41, 42, 79, 80, 81, 82, 83, 84),
-('Ningguang', 'Geo', 'Catalyst', 4, NULL, 'The Tianquan of Liyue Qixing. Her wealth is unsurpassed in all of Teyvat.', NULL, NULL, 59, 44, 45, 46, 43, 44, 45, 85, 86, 87, 88, 89, 90),
-('Noelle', 'Geo', 'Claymore', 4, NULL, 'A maid in the service of the Knights of Favonius that dreams of joining their ranks someday.', NULL, NULL, 39, 47, 48, 49, 46, 47, 48, 91, 92, 93, 94, 95, 96),
-('Qiqi', 'Cryo', 'Sword', 5, NULL, 'An apprentice and herb-picker Bubu Pharmacy. An undead with a bone-white complexion, she seldom has much in the way of words or emotion.', NULL, NULL, 0, 50, 51, 52, 49, 50, 51, 97, 98, 99, 100, 101, 102),
-('Razor', 'Electro', 'Claymore', 4, NULL, 'A boy who lives among the wolves in Wolvendom of Mondstadt, away from human civilization. As agile as lightning.', NULL, NULL, 37, 53, 54, 55, 52, 53, 54, 103, 104, 105, 106, 107, 108),
-('Sucrose', 'Anemo', 'Catalyst', 4, NULL, 'An alchemist filled with curiosity about all things. She researches bio-alchemy.', NULL, NULL, NULL, 56, 57, 58, 55, 56, 57, 109, 110, 111, 112, 113, 114),
+INSERT INTO `Characters` (`_ID`, `Element`, `WeaponType`, `Rarity`, `Tiers`, `Description`, `_IDArtefact`, `_IDArtefact2`, `_IDArme`, `Skill1`, `Skill2`, `Skill3`, `_IDPassive1`, `_IDPassive2`, `_IDPassive3`, `_IDConstellations1`, `_IDConstellations2`, `_IDConstellations3`, `_IDConstellations4`, `_IDConstellations5`, `_IDConstellations6`) VALUES
+('Albedo', 'Geo', 'Sword', 5, NULL, 'Albedo — an alchemist based in Mondstadt, in the service of the Knights of Favonius.\r\n\r\n\"Genius,\" \"Kreideprinz,\" or \"Captain of the Investigation Team\"... Such titles and honors are of no consequence to him when there is so much more research to conduct.\r\n\r\nThe pursuit of fortune and connections cannot hold a candle to his heart\'s desire — acquiring the limitless, obscure knowledge left behind by previous generations of scholars.', 12, 6, 0, 89, 90, 91, 83, 84, 89, 169, 170, 171, 172, 173, 174),
+('Amber', 'Pyro', 'Bow', 4, NULL, 'Always energetic and full of life, Amber\'s the best - albeit only - Outrider of the Knights of Favonius.', 6, NULL, 79, 1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5, 6),
+('Barbara', 'Hydro', 'Catalyst', 4, NULL, 'Every denizen of Mondstadt adores Barbara. However, she learned the word \"idol\" from a magazine.', 7, NULL, 66, 4, 5, 6, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+('Beidou', 'Electro', 'Claymore', 4, NULL, 'Beidou is the leader of the Crux — an armed fleet based in Liyue Harbor. An armed fleet means exactly what it sounds like: a fleet of ships armed to the teeth.', 9, NULL, 37, 7, 8, 9, 7, 8, 9, 13, 14, 15, 16, 17, 18),
+('Bennett', 'Pyro', 'Sword', 4, NULL, 'A righteous and good-natured adventurer from Mondstadt who\'s unfortunately extremely unlucky.', 6, NULL, 0, 10, 11, 12, 10, 11, 12, 19, 20, 21, 22, 23, 24),
+('Chongyun', 'Cryo', 'Claymore', 4, NULL, 'A young exortcist from a family of exorcists. He does everything he can to suppress his pure positive energy.', 6, NULL, 39, 13, 14, 15, 13, 14, 15, 25, 26, 27, 28, 29, 30),
+('Diluc', 'Pyro', 'Claymore', 5, NULL, 'The tycoon of a winery empire in Mondstadt, unmatched in every possible way.', 10, NULL, 37, 16, 17, 18, 16, 17, 18, 31, 32, 33, 34, 35, 36),
+('Diona', 'Cryo', 'Bow', 4, NULL, 'The incredibly popular bartender of the Cat\'s Tail tavern, rising star of Mondstadt\'s wine industry, and the greatest challenger to its traditional powerhouses.\r\n\r\nA feisty feline young lady from Springvale, any drink mixed by Diona\'s hand tastes delicious beyond belief.\r\n\r\nYet given her extreme distaste for alcohol, is her talent a blessing or a curse?', 7, NULL, 83, 19, 20, 21, 19, 20, 21, 37, 38, 39, 40, 41, 42),
+('Fischl', 'Electro', 'Bow', 4, NULL, 'A mysterious girl who calls herself \"Prinzessia der Verurteilung\" and travels with a night raven named Oz.', 4, NULL, 79, 22, 23, 24, 22, 23, 24, 43, 44, 45, 46, 47, 48),
+('Jean', 'Anemo', 'Sword', 5, NULL, 'The righteous and rigorous Dandelion Knight, and Acting Grand Master of the Knights of Favonius in Mondstadt.', 6, NULL, 0, 25, 26, 27, 25, 26, 27, 49, 50, 51, 52, 53, 54),
+('Kaeya', 'Cryo', 'Sword', 4, NULL, 'A thinker in the Knights of Favonius with a somewhat exotic appearance.', 6, NULL, 0, 28, 29, 30, 28, 29, 30, 55, 56, 57, 58, 59, 60),
+('Keqing', 'Electro', 'Sword', 5, NULL, 'The Yuheng of the Liyue Qixing. Has much to say about Rex Lapis\' unilateral approach to policymaking in Liyue - but in truth, gods admire skeptics such as her quite a lot.', 4, NULL, 3, 31, 32, 33, 31, 32, 33, 61, 62, 63, 64, 65, 66),
+('Klee', 'Pyro', 'Catalyst', 5, NULL, 'An explosives expert and a regular at the Knights of Favonius\' confinement room. Also known as Fleeing Sunlight.', 10, NULL, 58, 34, 35, 36, 34, 35, 36, 67, 68, 69, 70, 71, 72),
+('Lisa', 'Electro', 'Catalyst', 4, NULL, 'The languid but knowledgeable Librarian of the Knights of Favonius who was deemed by Sumeru Academia to be their most distinguised graduate in the past two centuries.', 6, NULL, 58, 37, 38, 39, 37, 38, 39, 73, 74, 75, 76, 77, 78),
+('Mona', 'Hydro', 'Catalyst', 5, NULL, 'A mysterious young astrologer who proclaims herself to be \"Astrologist Mona Megistus,\" and who possesses abilities to match the title.\r\n\r\nThough she is often strapped for cash and lives a life of thrift, she is resolved to never use astrology for profit... It is this very resolution that has caused her to constantly fret about money.', 6, NULL, 58, 40, 41, 42, 40, 41, 42, 79, 80, 81, 82, 83, 84),
+('Ningguang', 'Geo', 'Catalyst', 4, NULL, 'The Tianquan of Liyue Qixing. Her wealth is unsurpassed in all of Teyvat.', 12, 9, 59, 44, 45, 46, 43, 44, 45, 85, 86, 87, 88, 89, 90),
+('Noelle', 'Geo', 'Claymore', 4, NULL, 'A maid in the service of the Knights of Favonius that dreams of joining their ranks someday.', 7, 5, 39, 47, 48, 49, 46, 47, 48, 91, 92, 93, 94, 95, 96),
+('Qiqi', 'Cryo', 'Sword', 5, NULL, 'An apprentice and herb-picker Bubu Pharmacy. An undead with a bone-white complexion, she seldom has much in the way of words or emotion.', 7, NULL, 0, 50, 51, 52, 49, 50, 51, 97, 98, 99, 100, 101, 102),
+('Razor', 'Electro', 'Claymore', 4, NULL, 'A boy who lives among the wolves in Wolvendom of Mondstadt, away from human civilization. As agile as lightning.', 9, NULL, 37, 53, 54, 55, 52, 53, 54, 103, 104, 105, 106, 107, 108),
+('Sucrose', 'Anemo', 'Catalyst', 4, NULL, 'An alchemist filled with curiosity about all things. She researches bio-alchemy.', 2, NULL, NULL, 56, 57, 58, 55, 56, 57, 109, 110, 111, 112, 113, 114),
 ('Tartaglia', 'Hydro', 'Bow', 5, NULL, 'No. 11 of The Harbingers, also known as \"Childe\". His name is highly feared on the battlefield.', NULL, NULL, 79, 59, 60, 61, 58, 59, 60, 115, 116, 117, 118, 119, 120),
-('Traveler (Anemo)', 'Anemo', 'Sword', 5, NULL, 'A traveler from another world who had their only kin taken away, forcing them to embark on a journey to find The Seven.', NULL, NULL, 0, 62, 63, 64, 61, 62, NULL, 121, 122, 123, 124, 125, 126),
-('Traveler (Geo)', 'Geo', 'Sword', 5, NULL, 'A traveler from another world who had their only kin taken away, forcing them to embark on a journey to find The Seven.', NULL, NULL, 0, 65, 66, 67, 63, 64, NULL, 127, 128, 129, 130, 131, 132),
-('Venti', 'Anemo', 'Bow', 5, NULL, 'One of the many bards of Mondstadt, who freely wanders the city\'s streets and alleys.', NULL, NULL, 82, 68, 69, 70, 65, 66, 67, 133, 134, 135, 136, 137, 138),
-('Xiangling', 'Pyro', 'Polearm', 4, NULL, 'A renowned chef from Liyue. She\'s extremely passionate about cooking and excels at making her signature hot and spicy dishes.', NULL, NULL, 21, 71, 72, 73, 68, 69, 70, 139, 140, 141, 142, 143, 144),
-('Xiao', 'Anemo', 'Polearm', 5, NULL, 'A yaksha adeptus that defends Liyue. Also heralded as the \"Conqueror of Demons\" or \"Vigilant Yaksha.\"', NULL, NULL, 22, 74, 75, 76, 71, 72, 73, 145, 146, 147, 148, 149, 150),
-('Xingqiu', 'Hydro', 'Sword', 4, NULL, 'A young man carrying a longsword who is frequently seen at book booths. He has a chivalrous heart and yearns for justice and fairness for all.', NULL, NULL, 5, 77, 78, 79, 74, 75, 76, 151, 152, 153, 154, 155, 156),
-('Xinyan', 'Pyro', 'Claymore', 4, NULL, 'Liyue\'s sole rock \'n\' roll musician. She rebels against ossified prejudices using her music and passionate singing.', NULL, NULL, 37, 80, 81, 82, 77, 78, 79, 157, 158, 159, 160, 161, 162),
-('Zhongli', 'Geo', 'Polearm', 5, NULL, 'A mysterious guest invited by the Wangsheng Funeral Parlor. Extremely knowledgeable in all things.', NULL, NULL, 30, 83, 84, 85, 80, 81, 82, 163, 164, 165, 166, 167, 168);
+('Traveler (Anemo)', 'Anemo', 'Sword', 5, NULL, 'A traveler from another world who had their only kin taken away, forcing them to embark on a journey to find The Seven.', 2, NULL, 0, 62, 63, 64, 61, 62, NULL, 121, 122, 123, 124, 125, 126),
+('Traveler (Geo)', 'Geo', 'Sword', 5, NULL, 'A traveler from another world who had their only kin taken away, forcing them to embark on a journey to find The Seven.', 12, NULL, 0, 65, 66, 67, 63, 64, NULL, 127, 128, 129, 130, 131, 132),
+('Venti', 'Anemo', 'Bow', 5, NULL, 'One of the many bards of Mondstadt, who freely wanders the city\'s streets and alleys.', 2, NULL, 82, 68, 69, 70, 65, 66, 67, 133, 134, 135, 136, 137, 138),
+('Xiangling', 'Pyro', 'Polearm', 4, NULL, 'A renowned chef from Liyue. She\'s extremely passionate about cooking and excels at making her signature hot and spicy dishes.', 10, NULL, 21, 71, 72, 73, 68, 69, 70, 139, 140, 141, 142, 143, 144),
+('Xiao', 'Anemo', 'Polearm', 5, NULL, 'A yaksha adeptus that defends Liyue. Also heralded as the \"Conqueror of Demons\" or \"Vigilant Yaksha.\"', 9, NULL, 22, 74, 75, 76, 71, 72, 73, 145, 146, 147, 148, 149, 150),
+('Xingqiu', 'Hydro', 'Sword', 4, NULL, 'A young man carrying a longsword who is frequently seen at book booths. He has a chivalrous heart and yearns for justice and fairness for all.', 6, NULL, 5, 77, 78, 79, 74, 75, 76, 151, 152, 153, 154, 155, 156),
+('Xinyan', 'Pyro', 'Claymore', 4, NULL, 'Liyue\'s sole rock \'n\' roll musician. She rebels against ossified prejudices using her music and passionate singing.', 9, NULL, 37, 80, 81, 82, 77, 78, 79, 157, 158, 159, 160, 161, 162),
+('Zhongli', 'Geo', 'Polearm', 5, NULL, 'Wangsheng Funeral Parlor mysterious consultant. Handsome, elegant, and surpassingly learned.<br>\r\nThough no one knows where Zhongli is from, he is a master of courtesy and rules. From his seat at Wangsheng Funeral Parlor, he performs all manner of rituals.', 6, NULL, 30, 83, 84, 85, 80, 81, 82, 163, 164, 165, 166, 167, 168);
 
 -- --------------------------------------------------------
 
@@ -334,7 +348,13 @@ INSERT INTO `Constellations` (`_ID`, `Name`, `Description`, `_IDCharacter`) VALU
 (165, 'Jade, Shimmering through Darkness', 'Increases the Level of Dominus Lapidis by 3.<br>\nMaximum upgrade level is 15.', 'Zhongli'),
 (166, 'Topaz, Unbreakable and Fearless', 'Increases Planet Befall\'s AoE by 20% and increases the duration of Planet Befall\'s Petrification effect by 2s.', 'Zhongli'),
 (167, 'Lazuli, Herald of the Order', 'Increase the Level of Planet Befall by 3.<br>\nMaximum upgrade level is 15.', 'Zhongli'),
-(168, 'Chrysos, Bounty of Dominator', 'When the Jade Shield takes DMG, 40% of that incoming DMG is converted to HP for the current character.\n<br>\nA single instance of regeneration cannot exceed 8% of that character\'s Max HP.', 'Zhongli');
+(168, 'Chrysos, Bounty of Dominator', 'When the Jade Shield takes DMG, 40% of that incoming DMG is converted to HP for the current character.\n<br>\nA single instance of regeneration cannot exceed 8% of that character\'s Max HP.', 'Zhongli'),
+(169, 'Flower of Eden', 'Transient Blossoms generated by Albedo\'s Abiogenesis: Solar Isotoma regenerate 1.2 Energy for Albedo.', 'Albedo'),
+(170, 'Opening of Phanerozoic', '<p>Transient Blossoms generated by Abiogenesis: Solar Isotoma grant Albedo Fatal Reckoning for 30s:</p>\r\n<ul>\r\n<li>Each stack of Fatal Reckoning increases DMG by of Albedo\'s DEF.</li>\r\n<li>The effect stacks up to 4 times.</li>\r\n</ul>\r\n<p>Unleashing Rite of Progeniture: Tectonic Tide consumes all stacks of Fatal Reckoning, increasing the DMG dealt by the Tectonic Tide and Fatal Blossoms based on the number of stacks consumed.</p>', 'Albedo'),
+(171, 'Grace of Helios', 'Increases the level of Abiogenesis: Solar Isotoma by 3.\r\nMaximum upgrade level is 15.', 'Albedo'),
+(172, 'Descent of Divinity', 'Solar Isotoma increases Plunging Attack DMG by 30% for active party members within the AoE.', 'Albedo'),
+(173, 'Tide of Hadaen', 'Increases the level of Rite of Progeniture: Tectonic Tide by 3.\r\nMaximum upgrade level is 15.', 'Albedo'),
+(174, 'Dust of Purification', 'If active party members within the AoE are protected by a shield created by Crystallize, Solar Isotoma increases their DMG by 17%.', 'Albedo');
 
 -- --------------------------------------------------------
 
@@ -436,7 +456,10 @@ INSERT INTO `Passives` (`_ID`, `Name`, `Obtention`, `Description`, `_IDCharacter
 (79, 'A Rad Recipe', NULL, 'When a Perfect Cooking is achieved on an DEF-boosting dish, Xinyan has a 12% chance to obtain double the product.', 'Xinyan'),
 (80, 'Resonant Waves', 'Ascension 1', '<p>When the Jade Shield takes DMG, it will Fortify:</p>\n<ul>\n<li>Fortified characters have 5% increased Shield Strength.</li>\n</ul>\n<p>Can stack up to 5 times, and lasts until the Jade Shield dissapears.</p>', 'Zhongli'),
 (81, 'Dominance of Earth', 'Ascension 4', 'Planet Befall deals additional DMG equal to 33% of Zhongli\'s Max HP.', 'Zhongli'),
-(82, 'Arcanum of Crystal', NULL, 'Refunds 15% of the ores used when crafting Polearm-type weapons.', 'Zhongli');
+(82, 'Arcanum of Crystal', NULL, 'Refunds 15% of the ores used when crafting Polearm-type weapons.', 'Zhongli'),
+(83, 'Calcite Might', 'Ascension 1', 'Transient Blossoms generated by Abiogenesis: Solar Isotoma deal 25% more DMG to enemies whose HP is below 50%.', 'Albedo'),
+(84, 'Homuncular Nature', 'Ascension 4', 'Using Rite of Progeniture: Tectonic Tide increases the Elemental Mastery of nearby party members by 125 for 10s.', 'Albedo'),
+(89, 'Flash of Genius', NULL, 'When Albedo crafts Weapon Ascension Materials, he has a 10% chance to receive double the product.', 'Albedo');
 
 -- --------------------------------------------------------
 
@@ -538,12 +561,15 @@ INSERT INTO `Skills` (`_ID`, `Name`, `Description`, `Type`, `Data`, `_IDCharacte
 (77, 'Guhua Style', '<h3>Normal Attack</h3>\n<p>Performs up to 5 rapid strikes.</p>\n<h3>Charged Attack</h3>\n<p>Consumes a certain amount of Stamina to unleash 2 rapid sword strikes.</p>\n<h3>Plunging Attack</h3>\n<p>Plunges from mid-aur to strike the ground below, damaging enemies along the path and dealing AoE DMG upon impact.</p>', 'Normal Attack', '[{\"stat\":\"1-Hit DMG\",\"value\":\"46.6%\"},{\"stat\":\"2-Hit DMG\",\"value\":\"47.6%\"},{\"stat\":\"3-Hit DMG\",\"value\":\"28.6% + 28.6%\"},{\"stat\":\"4-Hit DMG\",\"value\":\"56%\"},{\"stat\":\"5-Hit DMG\",\"value\":\"35.9% + 35.9%\"},{\"stat\":\"Charged Attack DMG\",\"value\":\"47.3% + 56.2%\"},{\"stat\":\"Charged Attack Stamina Cost\",\"value\":\"20\"},{\"stat\":\"Plunge DMG\",\"value\":\"63.9%\"},{\"stat\":\"Low / High Plunge DMG\",\"value\":\"128% / 160%\"}]', 'Xingqiu'),
 (78, 'Guhua Sword - Fatal Rainscreen', 'Xingqiu performs twin strikes with his sword, dealing Hydro DMG. At the same time, this ability creates the maximum number of Rain Swords, which will orbit the character.\n<br>\nThe Rain Swords have the following properties:\n<ul>\n<li>When a character takes DMG, the Rain Sword will shatter, reducing the amount of DMG taken.</li>\n<li>Increases the character\'s resistance to interruption.</li>\n</ul>\n<p>20% of Xingqiu\'s Hydro DMG Bonus will be converted to additional DMG Reduction for the Rain Swords.</p>\n<p>The maximum amount of additional DMG Reduction that can be gained this way is 24%.\n<br>\nThe initial maximum number of Rain Swords is 3.\n<br>\nUsing this ability applies the Wet status onto the character.</p>', 'Elemental Skill', '[{\"stat\":\"Skill DMG\",\"value\":\"168% + 191%\"},{\"stat\":\"Damage Reduction Ratio\",\"value\":\"20%\"},{\"stat\":\"Duration\",\"value\":\"15s\"},{\"stat\":\"CD\",\"value\":\"21s\"}]', 'Xingqiu'),
 (79, 'Guhua Sword - Raincutter', '<p>Initiate Rainbow Bladework and fight using an illusory sword rain, while creating the maximum number of Rain Swords.</p>\n<h3>Rainbow Bladework</h3>\n<ul>\n<li>Normal Attacks will trigger consecutive sword rain attacks, dealing Hydro DMG.</li>\n<li>Rain Swords will remain at the maximum number throughout the ability\'s duration.</li>\n</ul>\n<p>These effects carry over to other characters.</p>', 'Elemental Burst', '[{\"stat\":\"Sword Rain DMG\",\"value\":\"54.3%\"},{\"stat\":\"Duration\",\"value\":\"15s\"},{\"stat\":\"CD\",\"value\":\"20s\"},{\"stat\":\"Energy Cost\",\"value\":\"80\"}]', 'Xingqiu'),
-(80, 'Dance on Fire', '<h3>Normal Attack</h3>\n<p>Performs up to 4 consecutive strikes.</p>\n<h3>Charged Attack</h3>\n<p>Drains Stamina over time to perform continuous spinning attacks against all nearby enemies.\n<br>\nAt the end of the sequence, perform a more powerful slash.</p>\n<h3>Plunging Attack</h3>\n<p>Plunges from mid-air to strike the ground, damaging enemies along the path and dealing AoE DMG upon impact.</p>', 'Normal Attack', NULL, 'Xinyan'),
-(81, 'Sweeping Fervor', '<p>Xinyan brandishes her instrument, dealing Pyro DMG on nearby enemies, forming a shield made out of her audience\'s passion.<br>\nThe shield\'s DMG Absorption scales based on Xinyan\'s DEF and on the number of enemies hit.</p>\n<ul>\n<li>Hitting 0-1 enemies grants Shield Level 1: Ad Lib.</li>\n<li>Hitting 2 enemies grants Shield Level 2: Lead-In.</li>\n<li>Hitting 3 or more enemies grants Shield Level 3: Rave, which will also deal intermittent Pyro DMG to nearby enemies.</li>\n</ul>\n<p>The shield has the following special properties:</p>\n<ul>\n<li>When unleashed, it infuses Xinyan with Pyro.</li>\n<li>It has 250% DMG Absorption effectiveness against Pyro DMG.</li>\n</ul>', 'Elemental Skill', NULL, 'Xinyan'),
-(82, 'Riff Revolution', 'Strumming rapidly, Xinyan launches nearby enemies and deals Physical DMG to them, hyping up the crowd. The sheer intensity of the atmosphere will cause explosions that deal Pyro DMG to nearby enemies.', 'Elemental Burst', NULL, 'Xinyan'),
-(83, 'Rain of Stone', '<h3>Normal Attack</h3>\n<p>Performs up to 6 consecutive spear strikes.</p>\n<h3>Charged Attack</h3>\n<p>Consumes a certain amount of Stamina to lunge forward, dealing damage to enemies along the way.</p>\n<h3>Plunging Attack</h3>\n<p>Plunges from mid-air to strike the ground below, damaging enemies along the path and dealing AoE DMG upon impact.</p>', 'Normal Attack', NULL, 'Zhongli'),
-(84, 'Dominus Lapidis', '<h3>Press</h3>\n<p>Commands the omnipresent power of earth to solidify into a Stone Stele, dealing AoE Geo DMG.<br>\nAdditionally, the Stone Stele will resonate with other Geo Constructs in the vicinity, dealing Geo DMG to surrounding enemies.<br>\nThe Stone Stele is considered a Geo Construct, and can both be climbed and used to block attacks. Only one may exist at any one time.</p>\n<h3>Hold</h3>\n<p>Causes nearby Geo energy to explode, causing the following effects:</p>\n<ul>\n<li>Creates a shield of jade. The shield\'s DMG Absorption scales based on Zhongli\'s Max HP, and absorbs Geo DMG 250% more effectively.</li>\n<li>Causes AoE Geo DMG.</li>\n<li>If there are nearby targets with the Geo element, it will drain a large amount of Geo element from a maximum of 2 such targets. This effect does not cause DMG.</li>\n</ul>', 'Elemental Skill', NULL, 'Zhongli'),
-(85, 'Planet Befall', '<p>Brings a falling meteor down to earth, dealing massive Geo DMG to opponents caught in its AoE and applying the Petrification status to them.</p>\n<h3>Petrification</h3>\n<p>Opponents affected by the Petrification status cannot move.</p>', 'Elemental Burst', NULL, 'Zhongli');
+(80, 'Dance on Fire', '<h3>Normal Attack</h3>\n<p>Performs up to 4 consecutive strikes.</p>\n<h3>Charged Attack</h3>\n<p>Drains Stamina over time to perform continuous spinning attacks against all nearby enemies.\n<br>\nAt the end of the sequence, perform a more powerful slash.</p>\n<h3>Plunging Attack</h3>\n<p>Plunges from mid-air to strike the ground, damaging enemies along the path and dealing AoE DMG upon impact.</p>', 'Normal Attack', '[]', 'Xinyan'),
+(81, 'Sweeping Fervor', '<p>Xinyan brandishes her instrument, dealing Pyro DMG on nearby enemies, forming a shield made out of her audience\'s passion.<br>\nThe shield\'s DMG Absorption scales based on Xinyan\'s DEF and on the number of enemies hit.</p>\n<ul>\n<li>Hitting 0-1 enemies grants Shield Level 1: Ad Lib.</li>\n<li>Hitting 2 enemies grants Shield Level 2: Lead-In.</li>\n<li>Hitting 3 or more enemies grants Shield Level 3: Rave, which will also deal intermittent Pyro DMG to nearby enemies.</li>\n</ul>\n<p>The shield has the following special properties:</p>\n<ul>\n<li>When unleashed, it infuses Xinyan with Pyro.</li>\n<li>It has 250% DMG Absorption effectiveness against Pyro DMG.</li>\n</ul>', 'Elemental Skill', '[]', 'Xinyan'),
+(82, 'Riff Revolution', 'Strumming rapidly, Xinyan launches nearby enemies and deals Physical DMG to them, hyping up the crowd. The sheer intensity of the atmosphere will cause explosions that deal Pyro DMG to nearby enemies.', 'Elemental Burst', '[]', 'Xinyan'),
+(83, 'Rain of Stone', '<h3>Normal Attack</h3>\n<p>Performs up to 6 consecutive spear strikes.</p>\n<h3>Charged Attack</h3>\n<p>Consumes a certain amount of Stamina to lunge forward, dealing damage to enemies along the way.</p>\n<h3>Plunging Attack</h3>\n<p>Plunges from mid-air to strike the ground below, damaging enemies along the path and dealing AoE DMG upon impact.</p>', 'Normal Attack', '[]', 'Zhongli'),
+(84, 'Dominus Lapidis', '<h3>Press</h3>\n<p>Commands the omnipresent power of earth to solidify into a Stone Stele, dealing AoE Geo DMG.<br>\nAdditionally, the Stone Stele will resonate with other Geo Constructs in the vicinity, dealing Geo DMG to surrounding enemies.<br>\nThe Stone Stele is considered a Geo Construct, and can both be climbed and used to block attacks. Only one may exist at any one time.</p>\n<h3>Hold</h3>\n<p>Causes nearby Geo energy to explode, causing the following effects:</p>\n<ul>\n<li>Creates a shield of jade. The shield\'s DMG Absorption scales based on Zhongli\'s Max HP, and absorbs Geo DMG 250% more effectively.</li>\n<li>Causes AoE Geo DMG.</li>\n<li>If there are nearby targets with the Geo element, it will drain a large amount of Geo element from a maximum of 2 such targets. This effect does not cause DMG.</li>\n</ul>', 'Elemental Skill', '[]', 'Zhongli'),
+(85, 'Planet Befall', '<p>Brings a falling meteor down to earth, dealing massive Geo DMG to opponents caught in its AoE and applying the Petrification status to them.</p>\n<h3>Petrification</h3>\n<p>Opponents affected by the Petrification status cannot move.</p>', 'Elemental Burst', '[]', 'Zhongli'),
+(89, 'Favonius Bladework - Weiss', '<h3>Normal Attack</h3>\n<p>Perform up to 5 rapid strikes.</p>\n<h3>Charged Attack</h3>\n<p>Consumes a certain amount of Stamina to unleash 2 rapid sword strikes.</p>\n<h3>Plunging Attack</h3>\n<p>Plunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact.</p>', 'Normal Attack', '[]', 'Albedo'),
+(90, 'Abiogenesis: Solar Isotoma', '<p>Albedo creates a Solar Isotoma using alchemy, which deals AoE Geo DMG on appearance.</p>\r\n<h3>Solar Isotoma</h3>\r\n<ul>\n<li>When enemies within the Solar Isotoma zone are hit, the Solar Isotoma will generate Transient Blossoms which deal AoE Geo DMG. DMG dealt scales off Albedo\'s DEF.</li>\r\n<li>Transient Blossoms can only be generated once every 2s.</li>\r\n<li>When a character is located at the locus of the Solar Isotoma, the Solar Isotoma will accumulate Geo power to form a crystallized platform that lifts the character up to a certain height. Only one crystallized platform can exist at a time.</li>\r\n<li>Solar Isotoma is considered a Geo construct.</li>\n</ul>\r\n<p>Hold to designate the location of the skill.</p>', 'Elemental Skill', '[]', 'Albedo'),
+(91, 'Rite of Progeniture: Tectonic Tide', '<p>Under Albedo\'s command, Geo crystals surge and burst forth, dealing AoE Geo DMG in front of him.<br>\nIf a Solar Isotoma created by Albedo himself is on the field, 7 Fatal Blossoms will be generated in the Solar Isotoma field, bursting violently into bloom and dealing AoE Geo DMG</p>\n<p>Tecotonic Tide DMG and Fatal Blossom DMG will not generate Transient Blossoms.</p>', 'Elemental Burst', '[]', 'Albedo');
 
 -- --------------------------------------------------------
 
@@ -557,6 +583,20 @@ CREATE TABLE `User` (
   `Password` varchar(100) NOT NULL,
   `Mail` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `User`
+--
+
+INSERT INTO `User` (`_ID`, `Pseudo`, `Password`, `Mail`) VALUES
+(1, 'admin', 'admin', ''),
+(3, 'Julien', '$2y$10$5FvtL6b1a558SzqusSDPBOwo.sRWKvUI7QIJS7hQHDHKFfVteTar.', ''),
+(6, 'Thomas', '$2y$10$omnoMQcPmwAb0hnJhhKege7US2L21wgdCoxWQdtHGUaXusObM.irK', 'truhkjdyj@gmail.com'),
+(8, 'Asgarrrr', '$2y$10$Mw5xQ31689fxpJ.TfiUZJO1fWRf6.kSYLL5MG.1dZ83KgTqGPHhxK', ''),
+(9, 'Lucas', '$2y$10$GDvcI6b3I.ynSGEYdcQ1cOAE6Haehc5Vgi.V97FBpbIf/TUQDzIsa', ''),
+(10, 'Sharko', '$2y$10$JPR2A2mSSXuDfKaT69PYY.P9ixmvTZmzjfL6GyIitrSCR7hD2Xz1m', ''),
+(11, 'Langlace', '$2y$10$IRNavgKlNbeX3vMS59Yf.ekgeRgqjPm3RCYmun9o44PPjA84PT.yu', ''),
+(12, 'Over_Draw', '$2y$10$/wM6yMShfPakjT3ek8gXROoknfr9rlEArL2YIHlqEEE3.naqKPmGi', '');
 
 -- --------------------------------------------------------
 
@@ -586,7 +626,6 @@ INSERT INTO `Weapons` (`_ID`, `Name`, `Type`, `Rarity`, `MSValue`, `SStat`, `SSV
 (1, 'Aquila Favonia', '0', 5, 48, 'Physical DMG Bonus', NULL, 'Falcon\'s Defiance', 'ATK is increased by 20/25/30/35/40%. Triggers on taking DMG: the soul of the Falcon of the West awakens, holding the banner of the resistance aloft, regenerating HP equal to 100/115/130/145/160% of ATK and dealing 200/230/260/290/320% of ATK as DMG to surrounding enemies. This effect can only occur once every 15s.', 'Gacha'),
 (2, 'The Flute', '0', 4, 42, 'ATK', NULL, 'Chord', 'Normal or Charged Attacks grant Harmonic on hits. Gaining 5 Harmonics triggers the power of music and deals 100/125/150/175/200% ATK DMG to surrounding enemies. Harmonics last up to 30s, and a maximum of 1 can be gained every 0.5s.', 'Gacha'),
 (3, 'The Black Sword', '0', 4, 42, 'CRIT Rate', NULL, 'Justice', 'Increases DMG dealt by Normal and Charged Attacks by 20%.\r\nAdditionally, regenerates 60% of ATK as HP when Normal and Charged Attacks score a CRIT Hit. This effect can occur once every 5s.', 'BP Bounty'),
-(4, 'The Alley Flash', '0', 4, 44, 'CRIT Rate', NULL, 'Itinerant Hero', 'Continuously sprinting for at least 1s increases ATK by 28% for 6s. This effect cannot stack.', 'Gacha'),
 (5, 'Sacrificial Sword', '0', 4, 41, 'Energy Recharge', NULL, 'Composed', 'After damaging an opponent with an Elemental Skill, the skill has a 40/50/60/70/80% chance to end its own CD. Can only occur once every 30/26/22/18/14s.', 'Gacha'),
 (6, 'Royal Longsword', '0', 4, 42, 'ATK', NULL, 'Focus', 'Upon damaging an enemy, increases CRIT Rate by 8%. Max 5 stacks. A CRIT hit removes all stacks.', 'Starglitter Exchange'),
 (7, 'Prototype Rancour', '0', 4, 44, 'Physical DMG Bonus', NULL, 'Smashed Stone', 'On hit, Normal or Charged Attacks increase Base ATK and DEF by 4/4.5/5/5.5/6% for 6s. Max 4 stacks. Can only occur once every 0.3s.', 'Crafting'),
@@ -602,13 +641,10 @@ INSERT INTO `Weapons` (`_ID`, `Name`, `Type`, `Rarity`, `MSValue`, `SStat`, `SSV
 (17, 'Cool Steel', '0', 3, 39, 'ATK', NULL, 'Bane of Water and Ice', 'Increases DMG against enemies affected by Hydro or Cryo by 12/15/18/21/24%.', 'Gacha'),
 (18, 'Silver Sword', '0', 2, 33, '', NULL, '', '', 'Chest'),
 (19, 'Dull Blade', '0', 1, 23, '', NULL, '', '', 'Chest'),
-(20, 'Vortex Vanquisher\r\n', '1', 5, 46, 'ATK', NULL, 'Golden Majesty', 'Increases Shield Strength by 20/25/30/35/40%, scoring hits on opponents increases ATK by 4/5/6/7/8% for 8s. Max 5 stacks. Can only occur once every 0.3s. While protected by a shield this ATK increase effect is increased by 100%.', 'Gacha'),
+(20, 'Vortex Vanquisher', '1', 5, 46, 'ATK', NULL, 'Golden Majesty', 'Increases Shield Strength by 20/25/30/35/40%, scoring hits on opponents increases ATK by 4/5/6/7/8% for 8s. Max 5 stacks. Can only occur once every 0.3s. While protected by a shield this ATK increase effect is increased by 100%.', 'Gacha'),
 (21, 'Skyward Spine', '1', 5, 48, 'Energy Recharge', NULL, 'Black Wing', 'Increases CRIT Rate by 8% and increases Normal ATK SPD by 12%. Additionally, Normal and Charged Attacks hits on enemies have a 50% chance to trigger a vacuum blade that deals 40% of ATK as DMG in a small AoE. This effect can occur no more than once every 2s.', 'Gacha'),
 (22, 'Primordial Jade Winged-Spear', '1', 5, 48, 'CRIT Rate', NULL, 'Eagle Spear of Justice', 'On hit, increases ATK by 3.2/3.9/4.6/5.3/6% for 6s. Max 7 stacks. Can only occur once every 0.3s. Full stacks increase Skill DMG by 12/16/20/24/28%.', 'Gacha'),
-(23, 'Kunwu\'s Iris Rift', '1', 5, 46, 'ATK', NULL, 'Rainbow-Piercing Stinger', 'Increases Normal Attack SPD by 10/12/14/16/18%. Increases DMG against enemies affected by any element by 24/30/36/42/48%.', 'Gacha'),
-(24, 'Royal Spear', '1', 4, 44, 'ATK', NULL, 'Focus', 'Upon damaging an opponent, increases CRIT Rate by 8%. Max 5 stacks. A CRIT hit removes all stacks.', 'Starglitter Exchange'),
 (25, 'Prototype Grudge', '1', 4, 42, 'Energy Recharge', NULL, 'Magic Affinity', 'After using an Elemental Skill, increases Normal and Charged Attack DMG by 8% for 12s. Max 2 stacks.', 'Crafting'),
-(26, 'Lithic Spear', '1', 4, 42, 'Physical DMG Bonus', NULL, 'Lithic Axiom - Subjugating Evil', 'Normal Attack hits have a 20% chance of causing the next Charged Attack performed in the following 10s to deal 40% increased DMG.', 'Gacha'),
 (27, 'Favonius Lance', '1', 4, 44, 'Energy Recharge', NULL, 'Windfall', 'CRIT hits have a 60/70/80/90/100% chance to generate 1 Elemental Orb, which will regenerate 6 Energy for the character. Can only occur once every 12/10.5/9/7.5/6s.', 'Gacha'),
 (28, 'Dragon\'s Bane', '1', 4, 41, 'Elemental Mastery', NULL, 'Bane of Flame and Water', 'Increases DMG against enemies affected by Hydro or Pyro by 20/24/28/32/36%.', 'Gacha'),
 (29, 'Deathmatch', '1', 4, 41, 'CRIT Rate', NULL, 'Gladiator', 'If there are at least 2 opponents nearby, ATK is increased by 16% and DEF is increased by 16%. If there are less than 2 enemies nearby, ATK is increased by 24%.', 'BP Bounty'),
@@ -625,12 +661,11 @@ INSERT INTO `Weapons` (`_ID`, `Name`, `Type`, `Rarity`, `MSValue`, `SStat`, `SSV
 (40, 'Whiteblind', '2', 4, 42, 'DEF', NULL, 'Infusion Blade', 'On hit, Normal or Charged Attacks increase Base ATK and DEF by 6/7.5/9/10.5/12% for 6s. Max 4 stacks. Can only occur once every 0.5s.', 'Crafting'),
 (41, 'The Bell', '2', 4, 42, 'HP', NULL, 'Rebellious Guardian', 'Taking DMG generates a shield which absorbs DMG up to 20/23/26/29/32% of Max HP. This shield lasts for 10s or until broken, and can only be triggered once every 45s. While protected by the shield, the character gains 12/15/18/21/24% increased DMG.', 'Gacha'),
 (42, 'Serpent Spine', '2', 4, 42, 'CRIT Rate', NULL, 'Wavesplitter', 'Every 4s a character is on the field, they will deal 6% more DMG and take 3% more DMG. This effect has a maximum of 5 stacks and will not be reset if the character leaves the field, but will be cleared when the character takes DMG.', 'BP Bounty'),
-(43, 'Sacrificial Greatsword\r\n', '2', 4, 44, 'Energy Recharge', NULL, 'Composed', 'After damaging an opponent with an Elemental Skill, the skill has a 40/50/60/70/80% chance to end its own CD. Can only occur once every 30/26/22/18/14s.', 'Gacha'),
+(43, 'Sacrificial Greatsword', '2', 4, 44, 'Energy Recharge', NULL, 'Composed', 'After damaging an opponent with an Elemental Skill, the skill has a 40/50/60/70/80% chance to end its own CD. Can only occur once every 30/26/22/18/14s.', 'Gacha'),
 (44, 'Royal Greatsword', '2', 4, 43, 'ATK', NULL, 'Focus', 'Upon damaging an enemy, increases CRIT Rate by 8%. Max 5 stacks. A CRIT hit removes all stacks.', 'Starglitter Exchange'),
 (45, 'Rainslasher', '2', 4, 42, 'Elemental Mastery', NULL, 'Bane of Storm and Tide', 'Increases DMG against enemies affected by Hydro or Electro by 20/25/30/35/40%.', 'Gacha'),
 (46, 'Prototype Aminus', '2', 4, 44, 'ATK', NULL, 'Crush', 'On hit, Normal or Charged Attacks have a 50% chance to deal an additional 240/300/360/420/480% ATK DMG to enemies within a small radius. Can only occur once every 15s.', 'Crafting'),
-(47, 'Lithic Blade', '2', 4, 41, 'CRIT DMG', NULL, 'Lithic Axiom - Unity', 'For every character in the party who hails from Liyue, the character who equips this weapon gains 6/7/8/9/10% ATK increase and 2/3/4/5/6% CRIT Rate increase.', 'Gacha'),
-(48, 'Favonius Greatsword\r\n', '2', 4, 41, 'Energy Recharge', NULL, 'Windfall', 'CRIT hits have a 60/70/80/90/100% chance to generate 1 Elemental Orb, which will regenerate 6 Energy for the character. Can only occur once every 12/10.5/9/7.5/6s.', 'Gacha'),
+(48, 'Favonius Greatsword', '2', 4, 41, 'Energy Recharge', NULL, 'Windfall', 'CRIT hits have a 60/70/80/90/100% chance to generate 1 Elemental Orb, which will regenerate 6 Energy for the character. Can only occur once every 12/10.5/9/7.5/6s.', 'Gacha'),
 (49, 'Blackcliff Slasher', '2', 4, 42, 'CRIT DMG', NULL, 'Press the Advantage', 'After defeating an enemy, ATK is increased by 12/15/18/21/24% for 30s. This effect has a maximum of 3 stacks, and the duration of each stack is independent of the others.', 'Starglitter Exchange'),
 (50, 'White Iron Greatsword', '2', 3, 39, 'DEF', NULL, 'Cull the Weak', 'Defeating an opponent restores 8/10/12/14/16% HP.', 'Gacha'),
 (51, 'Skyrider Greatsword', '2', 3, 39, 'Physical DMG Bonus', NULL, 'Courage', 'On hit, Normal or Charged Attacks increase ATK by 6/7/8/9/10% for 6s. Max 4 stacks. Can only occur once every 0.5s.', 'Gacha'),
@@ -643,10 +678,9 @@ INSERT INTO `Weapons` (`_ID`, `Name`, `Type`, `Rarity`, `MSValue`, `SStat`, `SSV
 (58, 'Skyward Atlas', '3', 5, 45, 'ATK', NULL, 'Wandering Clouds', 'Increases Elemental DMG Bonus by 12/15/18/21/24%. Normal Attack hits have a 50% chance to earn the favor of the clouds. which actively seek out nearby enemies to attack for 15s, dealing 160/200/240/280/320% ATK DMG. Can only occur once every 30s.', 'Gacha'),
 (59, 'Lost Prayer to the Sacred Winds', '3', 5, 44, ' CRIT Rate', NULL, 'Boundless Blessing', 'Increases Movement SPD by 10%. When in battle, earn a 6/8/10/12/14% Elemental DMG Bonus every 4s. Max 4 stacks. Lasts until the character falls or leaves combat.', 'Gacha'),
 (60, 'Memory of Dust', '3', 5, 46, 'ATK', NULL, 'Golden Majesty', 'Increase Shield Strength by 20/25/30/35/40%. Scoring hits on opponents increases ATK by 4/5/6/7/8% for 8s. Max 5 stacks. Can only occur once every 0.3s. While protected by a shield, this ATK increase effect is increased by 100%.', 'Gacha'),
-(61, 'Wine and Song', '3', 4, 42, 'Energy Recharge', NULL, 'Wind in the Square', 'For every character in the party who hails from Mondstadt, the character who equips this weapon gains 8/10/12/14/16% ATK increase and 3/3.5/4/4.5/5% Movement SPD increase.', 'Gacha'),
 (62, 'The Widsith', '3', 4, 42, 'CRIT DMG', NULL, 'Debut', 'When the character takes the field, they gain a random theme song for 10s:\r\nRecitative: Increases Base ATK by 60%\r\nInterlude: Elemental Mastery is increased by 240\r\nAria: Increases all Elemental DMG by 48%\r\nCan only occur once every 30s', 'Gacha'),
 (63, 'Solar Pearl', '3', 4, 42, ' CRIT Rate', NULL, 'Solar Shine', 'Normal Attack hits increase Elemental Skill and Elemental Burst DMG by 20/25/30/35/40% for 6s. Likewise, Elemental Skill or Elemental Burst hits increase Normal Attack DMG by 20/25/30/35/40% for 6s.', 'BP Bounty'),
-(64, 'Sacrificial Fragments\r\n', '3', 4, 41, 'Elemental Mastery', NULL, 'Composed', 'After damaging an opponent with an Elemental Skill, the skill has a 40/50/60/70/80% chance to end its own CD. Can only occur once every 30/26/22/18/14s.', 'Gacha'),
+(64, 'Sacrificial Fragments', '3', 4, 41, 'Elemental Mastery', NULL, 'Composed', 'After damaging an opponent with an Elemental Skill, the skill has a 40/50/60/70/80% chance to end its own CD. Can only occur once every 30/26/22/18/14s.', 'Gacha'),
 (65, 'Royal Grimoire', '3', 4, 44, 'ATK', NULL, 'Focus', 'Upon damaging an enemy, increases CRIT Rate by 8%. Max 5 stacks. A CRIT hit removes all stacks.', 'Starglitter Exchange'),
 (66, 'Prototype Malice', '3', 4, 42, 'HP', NULL, 'Gilding', 'Using an Elemental Burst regenerates 4/4.5/5/5.5/6 Energy every 2s for 6s. Additionally, all party members will regenerate 4/4.5/5/5.5/6% HP every 2s for this duration.', 'Crafting'),
 (67, 'Mappa Mare', '3', 4, 44, 'Elemental Mastery', NULL, 'Infusion Scroll', 'Triggering an Elemental reaction grants a 8/10/12/14/16% Elemental DMG Bonus for 10s. Max 2 stacks.', 'Crafting'),
@@ -672,7 +706,6 @@ INSERT INTO `Weapons` (`_ID`, `Name`, `Type`, `Rarity`, `MSValue`, `SStat`, `SSV
 (87, 'Favonius Warbow', '4', 4, 41, 'Energy Recharge', NULL, 'Windfall', 'CRIT hits have a 60/70/80/90/100% chance to generate 1 Elemental Orb, which will regenerate 6 Energy for the character. Can only occur once every 12/10.5/9/7.5/6s.', 'Gacha'),
 (88, 'Compound Bow', '4', 4, 41, 'Physical DMG Bonus', NULL, 'Infusion Arrow', 'Normal Attack and Aimed Shot hits increase ATK by 4/5/6/7/8% and Normal Attack SPD by 1.2/1.5/1.8/2.1/2.4% for 6s. Max 4 stacks. Can only occur once every 0.3s.', 'Crafting'),
 (89, 'Blackcliff Warbow', '4', 4, 44, 'CRIT DMG', NULL, 'Press the Advantage', 'After defeating an enemy, ATK is increased by 12/15/18/21/24% for 30s. This effect has a maximum of 3 stacks, and the duration of each stack is independent of the others.', 'Starglitter Exchange'),
-(90, 'Alley Hunter', '4', 4, 41, 'CRIT Rate', NULL, 'Urban Guerrilla', 'Every 4s a character is on the field, their ATK increases by 4/5/6/7/8% and their CRIT DMG increases by 4/5/6/7/8%. This effect has a maximum of 5 stacks and will not be reset if the character leaves the field, but will be cleared when the character takes DMG.', 'Gacha'),
 (91, 'Slingshot', '4', 3, 38, 'CRIT Rate', NULL, 'Slingshot', 'If a Normal Attack or Aimed Shot hits a target within 0.3s of being fired, increases DMG by 36/42/48/54/60%; otherwise, it decreases DMG by 10%.', 'Gacha'),
 (92, 'Sharpshooter\'s Oath', '4', 3, 39, 'CRIT DMG', NULL, 'Precise', 'Increases DMG against weak spots by 24/30/36/42/48%.', 'Gacha'),
 (93, 'Recurve Bow', '4', 3, 38, 'HP', NULL, 'Cull the Weak', 'Defeating an opponent restores 8/10/12/14/16% HP.', 'Chest'),
@@ -706,8 +739,7 @@ ALTER TABLE `Box`
 --
 ALTER TABLE `Characters`
   ADD PRIMARY KEY (`_ID`),
-  ADD UNIQUE KEY `_IDArtefact` (`_IDArtefact`,`_IDArme`),
-  ADD KEY `_IDArme` (`_IDArme`),
+  ADD UNIQUE KEY `_IDArtefact` (`_IDArtefact2`,`_IDArme`),
   ADD KEY `Skill1` (`Skill1`),
   ADD KEY `Skill2` (`Skill2`),
   ADD KEY `Skill3` (`Skill3`),
@@ -719,7 +751,9 @@ ALTER TABLE `Characters`
   ADD KEY `_IDConstellations1` (`_IDConstellations1`),
   ADD KEY `_IDPassive3` (`_IDPassive3`),
   ADD KEY `_IDPassive2` (`_IDPassive2`),
-  ADD KEY `_IDPassive1` (`_IDPassive1`);
+  ADD KEY `_IDPassive1` (`_IDPassive1`),
+  ADD KEY `_IDArme` (`_IDArme`),
+  ADD KEY `_IDArtefact_2` (`_IDArtefact`);
 
 --
 -- Indexes for table `Constellations`
@@ -763,37 +797,37 @@ ALTER TABLE `Weapons`
 -- AUTO_INCREMENT for table `Artefact`
 --
 ALTER TABLE `Artefact`
-  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `Box`
 --
 ALTER TABLE `Box`
-  MODIFY `_IDBox` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `_IDBox` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `Constellations`
 --
 ALTER TABLE `Constellations`
-  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
 
 --
 -- AUTO_INCREMENT for table `Passives`
 --
 ALTER TABLE `Passives`
-  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `Skills`
 --
 ALTER TABLE `Skills`
-  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `Weapons`
@@ -824,11 +858,13 @@ ALTER TABLE `Characters`
   ADD CONSTRAINT `Characters_ibfk_17` FOREIGN KEY (`_IDConstellations3`) REFERENCES `Constellations` (`_ID`),
   ADD CONSTRAINT `Characters_ibfk_18` FOREIGN KEY (`_IDConstellations4`) REFERENCES `Constellations` (`_ID`),
   ADD CONSTRAINT `Characters_ibfk_19` FOREIGN KEY (`_IDConstellations5`) REFERENCES `Constellations` (`_ID`),
-  ADD CONSTRAINT `Characters_ibfk_2` FOREIGN KEY (`_IDArtefact`) REFERENCES `Artefact` (`_ID`),
   ADD CONSTRAINT `Characters_ibfk_20` FOREIGN KEY (`_IDConstellations6`) REFERENCES `Constellations` (`_ID`),
   ADD CONSTRAINT `Characters_ibfk_21` FOREIGN KEY (`Skill1`) REFERENCES `Skills` (`_ID`),
   ADD CONSTRAINT `Characters_ibfk_22` FOREIGN KEY (`Skill2`) REFERENCES `Skills` (`_ID`),
-  ADD CONSTRAINT `Characters_ibfk_23` FOREIGN KEY (`Skill3`) REFERENCES `Skills` (`_ID`);
+  ADD CONSTRAINT `Characters_ibfk_23` FOREIGN KEY (`Skill3`) REFERENCES `Skills` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_24` FOREIGN KEY (`_IDArme`) REFERENCES `Weapons` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_25` FOREIGN KEY (`_IDArtefact`) REFERENCES `Artefact` (`_ID`),
+  ADD CONSTRAINT `Characters_ibfk_26` FOREIGN KEY (`_IDArtefact2`) REFERENCES `Artefact` (`_ID`);
 
 --
 -- Constraints for table `Constellations`
