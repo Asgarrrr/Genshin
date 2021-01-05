@@ -9,7 +9,7 @@
 
         $charName = $_GET['Name'];
 
-        $stmt = $dbh->prepare("SELECT * FROM Characters WHERE _ID = ?");
+        $stmt = $dbh->prepare("SELECT *, Weapons.name AS WeaponsName, Weapons.MSValue AS WeaponsMSValue, Weapons.SStat AS WeaponsSStat, Weapons.Description AS WeaponsDescription FROM Characters, Weapons WHERE Weapons._ID = Characters._IDArme AND Characters._ID = ?");
         $stmt->execute(array($charName));
 
         if ($char = $stmt->fetch()) {
@@ -23,14 +23,9 @@
             $passives = $dbh->prepare("SELECT * FROM Passives WHERE _IDCharacter = ?");
             $passives->execute(array($_GET['Name']));
 
-            $bestWeapon = $dbh->prepare("SELECT * FROM Weapons WHERE _ID = 1");
-            $bestWeapon->execute(array($char['_IDArme']));
-            $bestWeapon = $bestWeapon->fetch();
-
             $bestArt = $dbh->prepare("SELECT * FROM Artefact WHERE _ID IN ( ?, ? )");
             $bestArt->execute(array($char['_IDArtefact'], $char['_IDArtefact2']));
             $bestArt = $bestArt->fetch();
-
 
 
         } else {
@@ -155,15 +150,15 @@
                         <div class="p-3 card-body">
                             <div class="d-flex flex-row">
                                 <div class="px-2 w-25">
-                                    <a class='portrait mx-4' href='Weapon.php?Name=<?php echo $bestWeapon["Name"] ?>'>
-                                        <img class="icon" src="https://rerollcdn.com/GENSHIN/Weapon/NEW/<?php echo str_replace(' ', '_', $bestWeapon["Name"]); ?>.png">
+                                    <a class='portrait mx-4' href='Weapon.php?Name=<?php echo $char["WeaponName"] ?>'>
+                                        <img class="icon" src="https://rerollcdn.com/GENSHIN/Weapon/NEW/<?php echo str_replace(' ', '_', $char["WeaponName"]); ?>.png">
                                     </a>
                                 </div>
                                 <div class="pt-2">
                                     <h5 class="card-title">Weapon</h5>
-                                    <h6 class="card-subtitle text-muted"><?php echo $bestWeapon["Name"]; ?></h6>
-                                    <p><small><?php echo $bestWeapon["MSValue"]; ?> Attack — <i><?php echo $bestWeapon["SStat"]; ?></i></small></p>
-                                    <p><small><?php echo $bestWeapon["Description"]; ?></small></p>
+                                    <h6 class="card-subtitle text-muted"><?php echo $char["WeaponName"]; ?></h6>
+                                    <p><small><?php echo $char["WeaponMSValue"]; ?> Attack — <i><?php echo $char["WeaponSStat"]; ?></i></small></p>
+                                    <p><small><?php echo $char["WeaponDescription"]; ?></small></p>
                                 </div>
                             </div>
                         </div>
