@@ -151,6 +151,7 @@ body {
     justify-content: center;
     align-items: center;
     font-family: 'zh-cn';
+    max-width: 100%;
 }
 
 .background {
