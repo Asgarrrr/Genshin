@@ -1,9 +1,10 @@
 <?php
 
     try {
-
+        // Start or resume new session
         session_start();
         include("PHP/DB.php");
+        // Include database connection
         $stmt = $dbh->query("SELECT * FROM Artefact")->fetchAll();
     } catch (\Throwable $th) {
         print "Erreur ! — " . $e->getMessage();
@@ -26,7 +27,9 @@
 
     <body>
 
-        <?php include("Navbar.php"); ?>
+        <?php 
+            // Include navbar
+            include("Navbar.php"); ?>
 
         <main class="container">
 

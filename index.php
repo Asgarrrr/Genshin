@@ -1,11 +1,14 @@
 <?php
 
     try {
+        // Start or resume session
         session_start();
+        // Include database connection 
         include("PHP/DB.php");
+        // Get all character 
         $stmt = $dbh->query("SELECT * FROM Characters");
     } catch (\Throwable $th) {
-        print "Erreur ! — " . $e->getMessage() . "<br/>";
+        print "Erreur ! — " . $e->getMessage();
         die();
     }
 
@@ -27,8 +30,9 @@
 
     <script src="JS/gsap.js"></script>
     <script>
+            // On page display 
             window.addEventListener("pageshow", function ( event , ui) {
-
+            // If user return form chracter page, do no replay transiion animation
             if(localStorage.getItem('fromCharacter')) {
                 sessionStorage.removeItem('fromCharacter');
                 document.getElementsByClassName("sliderIn--first")[0].style.transform = "translate(-0%)";
@@ -42,13 +46,17 @@
         <div class="slider sliderIn--first"></div>
         <div class="slider sliderIn--second"></div>
 
-        <?php include("Navbar.php"); ?>
+        <?php 
+            // include navbar
+            include("Navbar.php"); ?>
 
         <main class="container">
             <div class="card secondary card-body">
                 <div class="data-list">
 
-                    <?php foreach ($stmt as $u) { ?>
+                    <?php 
+                        // foreach character
+                        foreach ($stmt as $u) { ?>
                         <a class='portrait' data-href='Character.php?Name=<?php echo $u["_ID"] ?>'>
                             <div class="icon" style="background-image: url('Assets/Character/Faces/<?php echo $u["_ID"] ?>.png')"></div>
                             <h2 class='name'><?php echo $u["_ID"] ?></h2>
@@ -71,7 +79,7 @@
                     gsap.to(".sliderIn--first", { x: "-100%", duration: 0.8, });
                     gsap.to(".sliderIn--second", { x: "-100%", duration: 0.4, onComplete: () => {
                         localStorage.setItem('fromCharacter', true)
-                        document.location.href = "http://localhost:8888/Genshin/" + target
+                        document.location.href = target;
                }});
                 }
             })

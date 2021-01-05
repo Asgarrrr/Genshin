@@ -1,10 +1,10 @@
 <?php
 
     try {
-
+        // Start or resume session
         session_start();
+        // include database connection
         include("PHP/DB.php");
-
     } catch (\Throwable $th) {
         print "Erreur ! — " . $e->getMessage() . "<br/>";
         die();
@@ -26,7 +26,9 @@
 
     <body>
 
-        <?php include("Navbar.php"); ?>
+        <?php 
+            // include navabar
+            include("Navbar.php"); ?>
 
         <div class="row loginform">
             <div class="col p-0 text-center d-flex justify-content-center align-items-center display-none"
@@ -62,20 +64,21 @@
 </html>
 
 <?php
-
+    // If user send form
     if (isset($_POST["submit"])) {
-
-        if ($_POST['password'] === $_POST['passwordCheck']) {
-
+        // If password input and username input are not empty
+        if ($_POST['password'] == $_POST['passwordCheck']) {
+            // Prepare and execute user selection in database 
             $stmt = $dbh->prepare('SELECT Pseudo FROM User WHERE Pseudo = ?');
             $stmt->execute(array($_POST['username'],));
-
+            // if no user are found, show error message
             if ($stmt->fetch())
                 exit("<script>document.getElementById('formInfo').innerHTML = 'The user already exists'; </script>");
-
+            // Prepare and execute user insertion in database 
             $stmt = $dbh->prepare('INSERT INTO User(Pseudo, Password) VALUE(?,? )');
             $stmt->execute(array(
                 $_POST['username'],
+                // Hash password
                 password_hash($_POST['password'], PASSWORD_DEFAULT)
             ));
 

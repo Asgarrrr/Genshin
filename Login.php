@@ -28,7 +28,9 @@
 
     <body>
 
-        <?php include("Navbar.php"); ?>
+        <?php 
+            // include navabar
+            include("Navbar.php"); ?>
 
         <div class="row loginform">
             <div class="col p-0 text-center d-flex justify-content-center align-items-center display-none" style="background-color: #01060E;">
@@ -62,25 +64,30 @@
 
 <?php
 
+    // If user send form
     if (isset($_POST["submit"])) {
+        // If password input and username input are not empty
         if((!empty($_POST['password'])) && (!empty($_POST['username']))){
+            // Prepare and execute user selection in database 
             $stmt = $dbh->prepare('SELECT _ID, Password, Mail FROM User WHERE Pseudo = ?');
             $stmt->execute(array($_POST['username']));
             $stmt = $stmt->fetch();
 
+            // if no user are found, show error message
             if (!$stmt) {
                 echo "<script>document.getElementById('formInfo').innerHTML = 'Wrong username or password' </script>";
             } else {
-
+                // check salted password and compare it 
                 if (password_verify($_POST['password'], $stmt['Password'])) {
+                    // if password is correct, start new session and add user data
                     session_start();
-                        $_SESSION['_ID'] = $stmt['_ID'];
-                        $_SESSION['pseudo'] = $_POST['username'];
-                        $_SESSION['Mail'] = $stmt['Mail'];
+                    $_SESSION['_ID'] = $stmt['_ID'];
+                    $_SESSION['pseudo'] = $_POST['username'];
+                    $_SESSION['Mail'] = $stmt['Mail'];
 
-
-                        echo "<script> window.location.href = 'User.php'; </script>";
-
+                    // Redirec user to his user profil page 
+                    echo "<script> window.location.href = 'User.php'; </script>";
+                    // if password is wrong, show error message
                 } else  echo "<script>document.getElementById('formInfo').innerHTML = 'Wrong username or password' </script>";
             }
         }

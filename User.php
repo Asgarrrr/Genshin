@@ -32,7 +32,9 @@
     </head>
     <body>
 
-        <?php include("Navbar.php"); ?>
+        <?php 
+            // include navabar
+            include("Navbar.php"); ?>
 
         <main class="container">
             <h5>Hi,</h5>
@@ -43,7 +45,9 @@
                 <div class="card-body">
                     <h4 class="card-title">Informations</h4>
 
-                    <?php if (isset($_GET['action']) && $_GET['action'] == "edit") { ?>
+                    <?php 
+                        // If action is set to 'edit'
+                        if (isset($_GET['action']) && $_GET['action'] == "edit") { ?>
                         <form method="POST">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
@@ -110,11 +114,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
     <?php
+        // If action is set to edit
         if (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_POST["update"])) {
+            // If user's password is correct  
             if ($_POST['password'] == $_POST['passwordCheck']) {
+                // Select password of user
                 $stmt = $dbh->prepare('SELECT Password FROM User WHERE _ID = ?');
                 $stmt->execute(array($_SESSION["_ID"]));
                 $stmt = $stmt->fetch();
+                // Verifie user password 
                 if (password_verify($_POST['password'], $stmt['Password'])) {
                     $stmt = $dbh->prepare("UPDATE User SET Pseudo = ?, Mail = ? WHERE _ID = ?");
                     $stmt->execute(
@@ -124,27 +132,29 @@
                             $_SESSION["_ID"]
                         )
                     );
+                    // Store user data
                     $_SESSION["pseudo"] = $_POST["username"];
                     $_SESSION["Mail"] =  $_POST["mail"];
                     echo "<script> window.location.href = 'User.php'; </script>";
-
+                // Show error message
                 } else echo "<script>document.getElementById('formInfo').innerHTML = 'Wrong password'; </script>";
             } else echo "<script>document.getElementById('formInfo').innerHTML = 'The two passwords do not match'; </script>";;
         }
-
+        // If acion is set on "disconnection"
         if (isset($_GET['action']) && $_GET['action'] == "disconnection") {
+            // Distroy session
             session_destroy();
             echo "<script> document.location.reload(); </script>";
         }
-
+        // If user has selected the checkbox and clic and delete button
         if(isset($_GET["checkbox"]) && isset($_GET["delete"])) {
-
+            // Prepare the user deletion in database and remove his box
             $stmt = $dbh->prepare("DELETE FROM User WHERE _ID = ?");
             $stmt->execute(array($_SESSION['_ID']));
 
             $stmt = $dbh->prepare("DELETE FROM Box WHERE _IDUser = ?");
             $stmt->execute(array($_SESSION['_ID']));
-
+            // Destroy the user session  
             session_destroy();
 
             echo "<script> window.location.href = 'index.php'; </script>";
