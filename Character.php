@@ -14,8 +14,6 @@
 
         if ($char = $stmt->fetch()) {
 
-            print_r($char);
-
             $skill = $dbh->prepare("SELECT * FROM Skills WHERE _IDCharacter = ?");
             $skill->execute(array($_GET['Name']));
 
