@@ -150,15 +150,15 @@
                         <div class="p-3 card-body">
                             <div class="d-flex flex-row">
                                 <div class="px-2 w-25">
-                                    <a class='portrait mx-4' href='Weapon.php?Name=<?php echo $char["WeaponName"] ?>'>
-                                        <img class="icon" src="https://rerollcdn.com/GENSHIN/Weapon/NEW/<?php echo str_replace(' ', '_', $char["WeaponName"]); ?>.png">
-                                    </a>
+                                    <a class='portrait mx-4' href='Weapon.php
+?Name=<?php echo $char["WeaponsName"] ?>'>
+                                        <img class="icon" src="https://rerollcdn.com/GENSHIN/Weapon/NEW/<?php echo str_replace(' ', '_', $char["WeaponsName"]); ?>.png">                                    </a>
                                 </div>
                                 <div class="pt-2">
                                     <h5 class="card-title">Weapon</h5>
-                                    <h6 class="card-subtitle text-muted"><?php echo $char["WeaponName"]; ?></h6>
-                                    <p><small><?php echo $char["WeaponMSValue"]; ?> Attack — <i><?php echo $char["WeaponSStat"]; ?></i></small></p>
-                                    <p><small><?php echo $char["WeaponDescription"]; ?></small></p>
+                                    <h6 class="card-subtitle text-muted"><?php echo $char["WeaponsName"]; ?></h6>
+                                    <p><small><?php echo $char["WeaponsMSValue"]; ?> Attack — <i><?php echo $char["WeaponsSStat"]; ?></i></small></p>
+                                    <p><small><?php echo $char["WeaponsDescription"]; ?></small></p>
                                 </div>
                             </div>
                         </div>
