@@ -14,6 +14,8 @@
 
         if ($char = $stmt->fetch()) {
 
+            print_r($char);
+
             $skill = $dbh->prepare("SELECT * FROM Skills WHERE _IDCharacter = ?");
             $skill->execute(array($_GET['Name']));
 
@@ -150,8 +152,7 @@
                         <div class="p-3 card-body">
                             <div class="d-flex flex-row">
                                 <div class="px-2 w-25">
-                                    <a class='portrait mx-4' href='Weapon.php
-?Name=<?php echo $char["WeaponsName"] ?>'>
+                                    <a class='portrait mx-4' href='Weapon.php?Name=<?php echo $char["WeaponsName"] ?>'>
                                         <img class="icon" src="https://rerollcdn.com/GENSHIN/Weapon/NEW/<?php echo str_replace(' ', '_', $char["WeaponsName"]); ?>.png">                                    </a>
                                 </div>
                                 <div class="pt-2">
