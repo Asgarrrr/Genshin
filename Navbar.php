@@ -19,7 +19,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <?php if(isset($_SESSION["_ID"])) && $_SESSION["_ID"]) { ?>
+                    <?php if(isset($_SESSION["_ID"]) && $_SESSION["_ID"]) { ?>
                         <a class="nav-link" id="User" href="User.php"><?php echo $_SESSION["pseudo"]; ?> </a>
                     <?php } else { ?>
                         <a class="userAdd nav-link" href="Login.php">+</a>
